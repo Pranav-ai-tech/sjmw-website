@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useScrollReveal } from '../../hooks/useScrollReveal';
-import sjmwLogo from '../../assets/sjmw-logo.jpg';
+import sjmwLogo from '../../assets/sjmw-logo.png';
 import './Footer.css';
 
 export default function Footer() {

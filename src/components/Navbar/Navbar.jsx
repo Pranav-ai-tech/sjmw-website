@@ -1,18 +1,11 @@
 import { useState, useEffect } from 'react';
 import './Navbar.css';
-import sjmwLogo from '../../assets/sjmw-logo.jpg';
+import sjmwLogo from '../../assets/sjmw-logo.png';
 
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 
-/* ── Navigation items ──────────────────────────────────────── */
-const NAV_LINKS = [
-  { label: 'Home',          href: '/#home' },
-  { label: 'Products',      href: '/#products' },
-  { label: 'Manufacturing', href: '/#manufacturing' },
-  { label: 'Quality',       href: '/#quality' },
-  { label: 'Testimonials',  href: '/#testimonials' },
-  { label: 'Contact',       href: '/#contact' },
-];
+/* ── Navigation items (Removed per user request) ───────────── */
+const NAV_LINKS = [];
 
 /**
  * Navbar Component
@@ -99,24 +92,7 @@ export default function Navbar() {
             </span>
           </a>
 
-          {/* Desktop Navigation */}
-          <nav aria-label="Primary navigation">
-            <ul className="navbar__nav" role="list">
-              {NAV_LINKS.map(({ label, href }) => (
-                <li key={href}>
-                  <a
-                    href={href}
-                    className={`navbar__nav-link${activeLink === href ? ' active' : ''}`}
-                    onClick={(e) => handleLinkClick(e, href)}
-                    aria-current={activeLink === href ? 'page' : undefined}
-                  >
-                    {label}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-
+          {/* Desktop Navigation (Removed) */}
           {/* Desktop CTA */}
           <div className="navbar__cta">
             <Link to="/about" className="btn-nav-secondary" aria-label="About Us">
@@ -150,16 +126,7 @@ export default function Navbar() {
         aria-label="Mobile navigation"
         aria-hidden={!menuOpen}
       >
-        {NAV_LINKS.map(({ label, href }) => (
-          <a
-            key={href}
-            href={href}
-            className="navbar__mobile-link"
-            onClick={(e) => handleLinkClick(e, href)}
-          >
-            {label}
-          </a>
-        ))}
+        {/* Mobile Navigation Links (Removed) */}
         <div className="navbar__mobile-divider" role="separator" />
         <div className="navbar__mobile-cta">
           <Link to="/about" className="btn-nav-secondary" onClick={() => setMenuOpen(false)}>

@@ -1,92 +1,319 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Products.css';
-import { alloys } from '../../data/alloys';
-import ProductSelector from './ProductSelector';
-import ProductCard from './ProductCard';
-import ProductStats from './ProductStats';
+import ingotImg from '../../assets/premium_aluminium_ingot_stack.png';
 import { useScrollReveal } from '../../hooks/useScrollReveal';
 
-/**
- * Products Section Component
- * 
- * Main wrapper for the "Our Aluminium Alloy Products" section.
- * Manages the state for the currently selected alloy and orchestrates
- * the layout with the selector, product card, and statistics.
- */
+// TargetY is the exact Y position for the dot on the ingot.
+// TargetX is the horizontal position of the dot on the ingot (relative to full container width).
+const ALLOY_DATA = [
+  {
+    id: 'lm6',
+    category: 'MARINE GRADE',
+    name: 'LM6',
+    desc: 'Excellent corrosion resistance',
+    app: 'Marine Components',
+    properties: ['High Fluidity', 'Corrosion Resistant', 'Good Weldability'],
+    targetX: '46', targetY: '38', side: 'left'
+  },
+  {
+    id: 'adc12',
+    category: 'DIE CAST',
+    name: 'ADC12',
+    desc: 'High Pressure Die Casting',
+    app: 'Gear Housings',
+    properties: ['Excellent Flow', 'Good Thermal Conductivity', 'High Production Rate'],
+    targetX: '52', targetY: '46', side: 'left'
+  },
+  {
+    id: 'lm24',
+    category: 'ENGINEERING',
+    name: 'LM24',
+    desc: 'Excellent machinability',
+    app: 'Industrial Components',
+    properties: ['High Yield Strength', 'Excellent Castability', 'Good Machinability'],
+    targetX: '55', targetY: '56', side: 'left'
+  },
+  {
+    id: 'a356',
+    category: 'PREMIUM',
+    name: 'A356',
+    desc: 'Heat Treatable Alloy',
+    app: 'Automotive Wheels',
+    properties: ['Exceptional Elongation', 'High Tensile Strength', 'Excellent Weldability'],
+    targetX: '53', targetY: '65', side: 'left'
+  },
+  {
+    id: 'lm25',
+    category: 'MARINE GRADE',
+    name: 'LM25',
+    desc: 'High Strength',
+    app: 'Marine Engineering',
+    properties: ['High Strength', 'Excellent Corrosion Resistance', 'Heat Treatable'],
+    targetX: '72', targetY: '70', side: 'right'
+  },
+  {
+    id: 'ac4b',
+    category: 'AUTOMOTIVE',
+    name: 'AC4B',
+    desc: 'General Engineering Alloy',
+    app: 'Precision Castings',
+    properties: ['Good Castability', 'High Hardness', 'Wear Resistance'],
+    targetX: '70', targetY: '78', side: 'right'
+  }
+];
+
+const LEFT_ALLOYS  = ALLOY_DATA.filter(a => a.side === 'left');
+const RIGHT_ALLOYS = ALLOY_DATA.filter(a => a.side === 'right');
+
 export default function Products() {
-  const [selectedAlloy, setSelectedAlloy] = useState(alloys[0]);
+  const [hoveredAlloy, setHoveredAlloy] = useState(null);
+  const [selectedAlloy, setSelectedAlloy] = useState(null);
   const { ref, isVisible } = useScrollReveal();
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
+  const sectionRef = useRef(null);
+  const containerRef = useRef(null);
+  const labelRefs = useRef([]);
+  const [lineCoords, setLineCoords] = useState([]);
 
-  // Listen for hash changes to update selected alloy from footer links
-  React.useEffect(() => {
-    const updateAlloyFromHash = () => {
-      const hash = window.location.hash;
-      if (hash.includes('?alloy=')) {
-        const alloyId = hash.split('?alloy=')[1];
-        const foundAlloy = alloys.find(a => a.id === alloyId);
-        if (foundAlloy) {
-          setSelectedAlloy(foundAlloy);
-        }
-      }
-    };
-
-    // Initial check
-    updateAlloyFromHash();
-
-    // Add listeners for hash changes and popstate (triggered by custom routing)
-    window.addEventListener('hashchange', updateAlloyFromHash);
-    window.addEventListener('popstate', updateAlloyFromHash);
-
-    return () => {
-      window.removeEventListener('hashchange', updateAlloyFromHash);
-      window.removeEventListener('popstate', updateAlloyFromHash);
-    };
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 1024);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  const updateLineCoords = () => {
+    if (!containerRef.current || isMobile) return;
+    const containerRect = containerRef.current.getBoundingClientRect();
+
+    const newCoords = ALLOY_DATA.map((alloy, index) => {
+      const label = labelRefs.current[index];
+      if (!label) return null;
+      const labelRect = label.getBoundingClientRect();
+
+      let startX, startY;
+      if (alloy.side === 'right') {
+        // For right-side labels: line starts from LEFT edge, goes left to dot
+        startX = ((labelRect.left - containerRect.left) / containerRect.width) * 100;
+      } else {
+        // For left-side labels: line starts from RIGHT edge, goes right to dot
+        startX = ((labelRect.right - containerRect.left) / containerRect.width) * 100;
+      }
+      startY = ((labelRect.top + labelRect.height / 2 - containerRect.top) / containerRect.height) * 100;
+
+      return { startX, startY };
+    });
+    setLineCoords(newCoords);
+  };
+
+  useEffect(() => {
+    if (isVisible) {
+      // First pass — some refs (especially right-side labels) may not be mounted yet
+      updateLineCoords();
+      // Use rAF to guarantee refs are populated after the browser paints
+      const raf = requestAnimationFrame(() => updateLineCoords());
+      // Extra safety pass after animations settle
+      const timeout  = setTimeout(updateLineCoords, 700);
+      const timeout2 = setTimeout(updateLineCoords, 1400);
+      window.addEventListener('resize', updateLineCoords);
+      return () => {
+        cancelAnimationFrame(raf);
+        clearTimeout(timeout);
+        clearTimeout(timeout2);
+        window.removeEventListener('resize', updateLineCoords);
+      };
+    }
+  }, [isVisible, isMobile]);
+
+  const handleMouseMove = (e) => {
+    if (!sectionRef.current) return;
+    const { left, top, width, height } = sectionRef.current.getBoundingClientRect();
+    const x = (e.clientX - left) / width - 0.5;
+    const y = (e.clientY - top) / height - 0.5;
+    sectionRef.current.style.setProperty('--mouse-x', x);
+    sectionRef.current.style.setProperty('--mouse-y', y);
+  };
+
+  // SVG straight line generator — matches the reference image style
+  const generatePath = (x1, y1, x2, y2) => {
+    if (!x1 || !y1) return ''; // wait for dynamic calculation
+    return `M ${x1} ${y1} L ${x2} ${y2}`;
+  };
 
   return (
     <section 
       id="products" 
-      className={`products-section reveal-section ${isVisible ? 'is-visible' : ''}`} 
-      aria-labelledby="products-heading"
-      ref={ref}
+      className={`products-blueprint premium-showcase reveal-section ${isVisible ? 'is-visible' : ''}`}
+      ref={(node) => {
+        ref.current = node;
+        sectionRef.current = node;
+      }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={() => {
+        if (sectionRef.current) {
+          sectionRef.current.style.setProperty('--mouse-x', 0);
+          sectionRef.current.style.setProperty('--mouse-y', 0);
+        }
+      }}
     >
-      
-      {/* Background Elements */}
-      <div className="products__noise" aria-hidden="true" />
-      <div className="products__glow" aria-hidden="true" />
-      
-      <div className="products__container">
-        
-        {/* Section Header */}
-        <header className="products__header">
-          <h2 id="products-heading" className="products__title">
-            Our <span className="products__title-highlight">Aluminium Alloy</span> Products
-          </h2>
-          <p className="products__subtitle">
-            For over 36 years, Sri Jothi Moulding Works has been manufacturing premium aluminium alloy
-            ingots that meet international quality standards for automotive, engineering, foundry, electrical
-            and industrial applications.
-          </p>
-        </header>
+      {/* Section Header — centered above the showcase */}
+      <div className={`products-section-header ${isVisible ? 'is-visible' : ''}`}>
+        <h2 className="products-section-heading animate-fade-up">Our Products</h2>
+        <p className="products-section-subtitle animate-fade-up" style={{ animationDelay: '0.15s' }}>
+          Premium aluminium alloy ingots for every industrial application.
+        </p>
+      </div>
 
-        {/* Main Content Area */}
-        <div className="products__main">
+      <div className="products-blueprint__container" ref={containerRef}>
+        
+        {/* Left Side: Structured 40% Column */}
+        <div className="products-blueprint__left">
           
-          {/* Left Panel: Alloy Selector */}
-          <ProductSelector 
-            alloys={alloys} 
-            selectedAlloy={selectedAlloy} 
-            onSelectAlloy={setSelectedAlloy} 
-          />
-          
-          {/* Right Panel: Product Detail Card */}
-          <ProductCard alloy={selectedAlloy} />
-          
+          <div className="premium-left-intro">
+            <span className="premium-left-badge animate-fade-down">PREMIUM ALUMINIUM ALLOYS</span>
+            <h2 className="premium-left-title animate-fade-down">
+              Our Aluminium Alloy Products
+            </h2>
+            <p className="premium-left-desc animate-fade-up">
+              Engineered Aluminium Alloys for Every Industry. SJMW manufactures world-class aluminium alloy ingots with uncompromising precision. From marine engineering to automotive die casting, our alloys form the backbone of modern industry.
+            </p>
+          </div>
+
+          <div className="premium-labels-list">
+            {LEFT_ALLOYS.map((alloy) => {
+              const index = ALLOY_DATA.findIndex(a => a.id === alloy.id);
+              return (
+                <div
+                  key={alloy.id}
+                  ref={(el) => (labelRefs.current[index] = el)}
+                  className={`blueprint-label premium-label ${
+                    hoveredAlloy === alloy.id || selectedAlloy?.id === alloy.id ? 'is-active' : ''
+                  }`}
+                  style={{ animationDelay: `${0.2 + index * 0.1}s` }}
+                  onMouseEnter={() => !isMobile && setHoveredAlloy(alloy.id)}
+                  onMouseLeave={() => !isMobile && setHoveredAlloy(null)}
+                  onClick={() => setSelectedAlloy(selectedAlloy?.id === alloy.id ? null : alloy)}
+                >
+                  <div className="blueprint-label__content">
+                    <span className="premium-label__category">{alloy.category}</span>
+                    <span className="blueprint-label__name">{alloy.name}</span>
+                    <span className="blueprint-label__desc">{alloy.desc}</span>
+                    <span className="premium-label__app">{alloy.app}</span>
+                  </div>
+                  {isMobile && (
+                    <div className={`blueprint-accordion ${selectedAlloy?.id === alloy.id ? 'is-open' : ''}`}>
+                      <div className="blueprint-panel__section">
+                        <h5>Mechanical Properties</h5>
+                        <ul>{alloy.properties.map((p, i) => <li key={i}>{p}</li>)}</ul>
+                      </div>
+                      <a href="#contact" className="blueprint-panel__cta premium-cta">View Specification →</a>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+
+          <div className="premium-left-footer">
+            <a href="/products" className="premium-catalogue-link animate-fade-up">
+              View Complete Catalogue →
+            </a>
+          </div>
+
         </div>
 
-        {/* Bottom Statistics Area */}
-        <ProductStats />
-        
+        {/* Right Side: Hero Ingot (68%) + Right Labels */}
+        <div className="products-blueprint__right">
+          <div className="premium-image-wrapper">
+            <div className="premium-image-glow" />
+            <img
+              src={ingotImg}
+              alt="Premium Aluminium Alloy Ingot"
+              className={`blueprint-image premium-image ${hoveredAlloy ? 'is-hovered' : ''}`}
+            />
+          </div>
+
+          {/* Right-side alloy labels — always rendered so refs are set; CSS hides on mobile */}
+          <div className="premium-right-labels">
+            {RIGHT_ALLOYS.map((alloy) => {
+              const index = ALLOY_DATA.findIndex(a => a.id === alloy.id);
+              return (
+                <div
+                  key={alloy.id}
+                  ref={(el) => (labelRefs.current[index] = el)}
+                  className={`blueprint-label blueprint-label--right premium-label ${
+                    hoveredAlloy === alloy.id || selectedAlloy?.id === alloy.id ? 'is-active' : ''
+                  }`}
+                  style={{ animationDelay: `${0.2 + index * 0.1}s` }}
+                  onMouseEnter={() => setHoveredAlloy(alloy.id)}
+                  onMouseLeave={() => setHoveredAlloy(null)}
+                  onClick={() => setSelectedAlloy(selectedAlloy?.id === alloy.id ? null : alloy)}
+                >
+                  <div className="blueprint-label__content">
+                    <span className="premium-label__category">{alloy.category}</span>
+                    <span className="blueprint-label__name">{alloy.name}</span>
+                    <span className="blueprint-label__desc">{alloy.desc}</span>
+                    <span className="premium-label__app">{alloy.app}</span>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Floating Information Panel (Desktop Only) */}
+          {selectedAlloy && !isMobile && (
+            <div className="blueprint-panel premium-glass-panel animate-slide-fade">
+              <button className="blueprint-panel__close" onClick={() => setSelectedAlloy(null)}>✕</button>
+              <div className="premium-glass-header">
+                <span className="premium-label__category panel-category">{selectedAlloy.category}</span>
+                <h4 className="blueprint-panel__name">{selectedAlloy.name}</h4>
+                <p className="blueprint-panel__desc">{selectedAlloy.desc}</p>
+              </div>
+              <div className="blueprint-panel__section">
+                <h5>Properties</h5>
+                <ul className="premium-prop-list">
+                  {selectedAlloy.properties.map((prop, idx) => (
+                    <li key={idx}>✓ {prop}</li>
+                  ))}
+                </ul>
+              </div>
+              <a href="#contact" className="blueprint-panel__cta premium-cta" onClick={(e) => { e.stopPropagation(); }}>
+                View Specification →
+              </a>
+            </div>
+          )}
+        </div>
+
+        {/* Unified absolute overlay for connecting SVG lines and dots */}
+        <div className="products-blueprint__annotations">
+          {!isMobile && (
+            <svg className="products-blueprint__svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+              {ALLOY_DATA.map((alloy, index) => {
+                const coords = lineCoords[index];
+                if (!coords) return null;
+                return (
+                  <path 
+                    key={`path-${alloy.id}`}
+                    className={`blueprint-line premium-line ${hoveredAlloy === alloy.id || selectedAlloy?.id === alloy.id ? 'is-active' : ''}`}
+                    d={generatePath(coords.startX, coords.startY, alloy.targetX, alloy.targetY)}
+                    style={{ animationDelay: `${0.2 + index * 0.1}s` }}
+                  />
+                );
+              })}
+            </svg>
+          )}
+
+          {!isMobile && ALLOY_DATA.map((alloy, index) => (
+            <div 
+              key={`dot-${alloy.id}`}
+              className={`blueprint-dot premium-dot ${hoveredAlloy === alloy.id || selectedAlloy?.id === alloy.id ? 'is-active' : ''}`}
+              style={{ top: `${alloy.targetY}%`, left: `${alloy.targetX}%`, animationDelay: `${0.5 + index * 0.1}s` }}
+              onMouseEnter={() => setHoveredAlloy(alloy.id)}
+              onMouseLeave={() => setHoveredAlloy(null)}
+              onClick={() => setSelectedAlloy(alloy)}
+            />
+          ))}
+        </div>
+
       </div>
     </section>
   );

@@ -36,27 +36,13 @@ body {
 body::before {
   content: '';
   position: fixed;
-  top: -50%;
-  left: -50%;
-  width: 200%;
-  height: 200%;
-  background: radial-gradient(circle at center, rgba(249, 115, 22, 0.03) 0%, transparent 40%);
-  animation: bgGlowDrift 25s ease-in-out infinite alternate;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: var(--color-bg); /* Flat minimal background */
+  z-index: -1;
   pointer-events: none;
-  z-index: 0;
-}
-
-@keyframes bgGlowDrift {
-  0% { transform: translate(0, 0); }
-  33% { transform: translate(5%, 5%); }
-  66% { transform: translate(-2%, 8%); }
-  100% { transform: translate(-5%, -2%); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  body::before {
-    animation: none;
-  }
 }
 
 /* ── Scroll Reveal Global Classes ──────────────────────────── */
