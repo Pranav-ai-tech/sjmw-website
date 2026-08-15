@@ -1,26 +1,22 @@
 export const qualityFeatures = [
   {
     id: 1,
-    title: 'Chemical Composition Testing',
-    description: 'Rigorous analysis of raw materials before manufacturing begins to ensure accurate alloy composition.',
-    icon: '⚗' // Laboratory Flask
+    title: 'Consistent Quality',
+    description: 'Strict quality control at every stage ensures reliable and consistent aluminium alloys.',
   },
   {
     id: 2,
-    title: 'Spectrometer Analysis',
-    description: 'Advanced spectrographic verification guarantees accurate chemical composition for every production batch.',
-    icon: '◷' // Gauge / Analysis
+    title: '35+ Years of Expertise',
+    description: 'Decades of manufacturing experience delivering alloys for demanding industries.',
   },
   {
     id: 3,
-    title: 'Visual & Dimensional Inspection',
-    description: 'Every aluminium alloy ingot is inspected for dimensions, surface quality and production consistency.',
-    icon: '⌕' // Inspection / Magnifier
+    title: 'Precision Manufacturing',
+    description: 'Carefully controlled processes ensure accurate composition and dependable performance.',
   },
   {
     id: 4,
-    title: 'Batch Traceability',
-    description: 'Every production batch is digitally tracked through the SJMW ERP system from manufacturing to dispatch.',
-    icon: '🖴' // Database / Tracking
+    title: 'Trusted Industrial Partner',
+    description: 'Reliable supply and consistent quality built around long-term customer relationships.',
   }
 ];

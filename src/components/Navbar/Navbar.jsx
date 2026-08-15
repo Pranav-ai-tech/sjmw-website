@@ -71,7 +71,7 @@ export default function Navbar() {
     <>
       {/* ── Main Navbar ─────────────────────────────────────── */}
       <header
-        className={`navbar${scrolled ? ' scrolled' : ''}`}
+        className={`navbar${scrolled || location.pathname === '/about' ? ' scrolled' : ''}`}
         role="banner"
         aria-label="Main navigation"
       >

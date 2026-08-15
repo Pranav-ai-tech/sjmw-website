@@ -1,10 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Contact.css';
 import { useScrollReveal } from '../../hooks/useScrollReveal';
-import factoryImage from '../../assets/4722af16-cce2-47cb-93c1-d9f73c6f7751.jpg';
+import sjmwLogo from '../../assets/sjmw-logo.png';
 
 export default function Contact() {
-  const { ref, isVisible } = useScrollReveal(0.2);
+  const { ref, isVisible } = useScrollReveal(0.15);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -15,204 +16,135 @@ export default function Contact() {
   return (
     <section 
       id="contact" 
-      className={`contact-section reveal-section ${isVisible ? 'is-visible' : ''}`}
+      className={`sjmw-contact reveal-section ${isVisible ? 'is-visible' : ''}`}
       ref={ref}
       aria-labelledby="contact-heading"
     >
-      <div className="contact__noise" aria-hidden="true" />
-      <div className="contact__glow" aria-hidden="true" />
+      {/* Subtle Technical Grid Background */}
+      <div className="sjmw-contact__bg-grid" aria-hidden="true" />
+      
+      {/* Large Subtle Watermark */}
+      <div className="sjmw-contact__watermark" aria-hidden="true">
+        SJMW
+      </div>
 
-      <div className="contact__container">
-        {/* Section Header */}
-        <header className="contact__header">
-          <div className="contact__label">
-            <span className="contact__label-dot"></span>
-            CONTACT SJMW
-          </div>
-          <h2 id="contact-heading" className="contact__title">
-            Let's Build Something <span className="contact__title-highlight">Together</span>
-          </h2>
-          <p className="contact__desc">
-            Whether you require premium aluminium alloy ingots, customized alloy solutions, or long-term manufacturing support, our experienced team is ready to assist. Contact Sri Jothi Moulding Works for product enquiries, quotations, technical support, and reliable manufacturing partnerships.
-          </p>
-        </header>
-
-        {/* Main Content Area */}
-        <div className="contact__content">
+      <div className="sjmw-contact__container">
+        
+        {/* 4-Column Grid */}
+        <div className="sjmw-contact__grid">
           
-          {/* Left Column */}
-          <div className="contact__info-col">
-            
-            {/* Address Card */}
-            <div className="contact__card">
-              <div className="contact__card-item">
-                <div className="contact__card-icon">
-                  <span aria-hidden="true">📍</span>
-                </div>
-                <div className="contact__card-details">
-                  <h4>Factory Address</h4>
-                  <p>Sri Jothi Moulding Works</p>
-                  <p>Thirumudivakkam</p>
-                  <p>Chennai – 600044</p>
-                  <p>Tamil Nadu</p>
-                </div>
+          {/* Column 1: Company Info */}
+          <div className="sjmw-contact__col sjmw-contact__col--company animate-fade-up" style={{ animationDelay: '0.3s' }}>
+            <div className="sjmw-contact__brand">
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '8px' }}>
+                <img src={sjmwLogo} alt="SJMW Logo" width={40} height={40} />
+                <span className="sjmw-contact__logo-text">SJMW</span>
               </div>
-              
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
-                <div className="contact__card-item" style={{ borderBottom: 'none', paddingBottom: 0, marginBottom: 0 }}>
-                  <div className="contact__card-icon" style={{ width: '32px', height: '32px', fontSize: '1rem' }}>
-                    <span aria-hidden="true">☎</span>
-                  </div>
-                  <div className="contact__card-details">
-                    <h4 style={{ fontSize: '1rem' }}>Phone</h4>
-                    <a href="tel:+919551798698">+91 95517 98698</a>
-                  </div>
-                </div>
-                
-                <div className="contact__card-item" style={{ borderBottom: 'none', paddingBottom: 0, marginBottom: 0 }}>
-                  <div className="contact__card-icon" style={{ width: '32px', height: '32px', fontSize: '1rem' }}>
-                    <span aria-hidden="true">✉</span>
-                  </div>
-                  <div className="contact__card-details">
-                    <h4 style={{ fontSize: '1rem' }}>Email</h4>
-                    <a href="mailto:info@sjmw.in">info@sjmw.in</a>
-                  </div>
-                </div>
+              <h3 className="sjmw-contact__company-name">Sri Jothi Moulding Works</h3>
+            </div>
+            
+            <p className="sjmw-contact__company-desc">
+              Whether you require premium aluminium alloy ingots, customized alloy solutions, or long-term manufacturing support, our experienced team is ready to assist.
+            </p>
+            
+            <div className="sjmw-contact__details">
+              <div className="sjmw-contact__detail-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                <span>Chennai, Tamil Nadu</span>
+              </div>
+              <div className="sjmw-contact__detail-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                <a href="tel:+919551798698">+91 95517 98698</a>
               </div>
 
-              <div className="contact__card-item" style={{ marginTop: '24px', paddingTop: '24px', borderTop: '1px solid rgba(255, 255, 255, 0.05)', borderBottom: 'none', paddingBottom: 0, marginBottom: 0 }}>
-                <div className="contact__card-icon" style={{ width: '32px', height: '32px', fontSize: '1rem' }}>
-                  <span aria-hidden="true">🕒</span>
-                </div>
-                <div className="contact__card-details">
-                  <h4 style={{ fontSize: '1rem' }}>Working Hours</h4>
-                  <p>Monday – Saturday</p>
-                  <p>9:00 AM – 6:00 PM</p>
-                </div>
+              <div className="sjmw-contact__detail-item">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                <span>Monday – Saturday<br/>9:00 AM – 6:00 PM</span>
               </div>
             </div>
 
-            {/* Embedded Google Map Component */}
-            <div className="contact__map-container">
-              <div className="contact__map-wrapper">
-                <iframe
-                  title="Sri Jothi Moulding Works Location"
-                  src="https://maps.google.com/maps?q=Sri%20Jothi%20Moulding%20Works,%20Thirumudivakkam,%20Chennai&t=&z=14&ie=UTF8&iwloc=&output=embed"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen=""
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                ></iframe>
-                
-                <div className="contact__map-badge">
-                  <span className="contact__map-badge-icon" aria-hidden="true">📍</span>
-                  <span className="contact__map-badge-text">
-                    Thirumudivakkam, Chennai
-                  </span>
-                </div>
-              </div>
-
-              <a 
-                href="https://www.google.com/maps/search/Sri+Jothi+Moulding+Works+Thirumudivakkam+Chennai"
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="contact__map-btn"
-                aria-label="Get directions to Sri Jothi Moulding Works"
-              >
-                Get Directions <span className="contact__map-btn-arrow" aria-hidden="true">→</span>
+            <div className="sjmw-contact__socials">
+              <a href="#" className="sjmw-social-btn" aria-label="LinkedIn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+              </a>
+              <a href="#" className="sjmw-social-btn" aria-label="Twitter">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>
+              </a>
+              <a href="#" className="sjmw-social-btn" aria-label="Facebook">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>
               </a>
             </div>
-
           </div>
 
-          {/* Right Column (Form) */}
-          <div className="contact__form-col">
-            <div className="contact__form-card">
-              <h3 className="contact__form-title">Send an Enquiry</h3>
+          {/* Column 2: Quick Links */}
+          <div className="sjmw-contact__col sjmw-contact__col--links animate-fade-up" style={{ animationDelay: '0.4s' }}>
+            <h4 className="sjmw-contact__col-title">Quick Links</h4>
+            <ul className="sjmw-contact__link-list">
+              <li><a href="#home">Home</a></li>
+              <li><a href="#products">Products</a></li>
+              <li><a href="#manufacturing">Manufacturing</a></li>
+              <li><a href="#quality">Quality</a></li>
+              <li><a href="#testimonials">Testimonials</a></li>
+              <li><a href="#about">About Us</a></li>
+              <li><a href="#contact">Contact</a></li>
+            </ul>
+          </div>
+
+          {/* Column 3: Products */}
+          <div className="sjmw-contact__col sjmw-contact__col--products animate-fade-up" style={{ animationDelay: '0.5s' }}>
+            <h4 className="sjmw-contact__col-title">Products</h4>
+            <ul className="sjmw-contact__link-list">
+              <li><Link to="/products/catalogue">Die Casting Alloys</Link></li>
+              <li><Link to="/products/catalogue">Gravity Casting Alloys</Link></li>
+              <li><Link to="/products/catalogue">Automotive Alloys</Link></li>
+              <li><Link to="/products/catalogue">Engineering Alloys</Link></li>
+              <li><Link to="/products/catalogue">Customized Alloys</Link></li>
+            </ul>
+            <Link to="/products/catalogue" className="sjmw-contact__explore-link">
+              Explore Catalogue <span aria-hidden="true">→</span>
+            </Link>
+          </div>
+
+          {/* Column 4: Contact Form */}
+          <div className="sjmw-contact__col sjmw-contact__col--form animate-fade-up" style={{ animationDelay: '0.6s' }}>
+            <div className="sjmw-contact__form-wrapper">
+              <h4 className="sjmw-contact__col-title">Contact Us</h4>
+              <p className="sjmw-contact__form-subtitle">
+                Tell us about your aluminium alloy requirements and our team will get back to you.
+              </p>
               
-              <form className="contact__form" onSubmit={handleSubmit}>
-                <div className="contact__form-row">
-                  <div className="contact__form-group">
-                    <label htmlFor="fullName" className="contact__form-label">Full Name</label>
-                    <input 
-                      type="text" 
-                      id="fullName" 
-                      name="fullName" 
-                      className="contact__form-input" 
-                      placeholder="John Doe"
-                      required
-                    />
-                  </div>
-                  <div className="contact__form-group">
-                    <label htmlFor="companyName" className="contact__form-label">Company Name</label>
-                    <input 
-                      type="text" 
-                      id="companyName" 
-                      name="companyName" 
-                      className="contact__form-input" 
-                      placeholder="Acme Corp"
-                    />
-                  </div>
+              <form className="sjmw-contact__form" onSubmit={handleSubmit}>
+                <div className="sjmw-form-group">
+                  <input type="text" id="fullName" name="fullName" className="sjmw-input" placeholder="Full Name" required />
+                </div>
+                
+                <div className="sjmw-form-group">
+                  <input type="tel" id="phone" name="phone" className="sjmw-input" placeholder="Phone Number" required />
                 </div>
 
-                <div className="contact__form-row">
-                  <div className="contact__form-group">
-                    <label htmlFor="email" className="contact__form-label">Email Address</label>
-                    <input 
-                      type="email" 
-                      id="email" 
-                      name="email" 
-                      className="contact__form-input" 
-                      placeholder="john@example.com"
-                      required
-                    />
-                  </div>
-                  <div className="contact__form-group">
-                    <label htmlFor="phone" className="contact__form-label">Phone Number</label>
-                    <input 
-                      type="tel" 
-                      id="phone" 
-                      name="phone" 
-                      className="contact__form-input" 
-                      placeholder="+91 98765 43210"
-                    />
-                  </div>
+                <div className="sjmw-form-group">
+                  <input type="text" id="subject" name="subject" className="sjmw-input" placeholder="Subject" required />
                 </div>
 
-                <div className="contact__form-group">
-                  <label htmlFor="subject" className="contact__form-label">Subject</label>
-                  <input 
-                    type="text" 
-                    id="subject" 
-                    name="subject" 
-                    className="contact__form-input" 
-                    placeholder="Enquiry about Aluminum Die Casting"
-                    required
-                  />
+                <div className="sjmw-form-group">
+                  <textarea id="message" name="message" className="sjmw-textarea" placeholder="Message" required></textarea>
                 </div>
 
-                <div className="contact__form-group">
-                  <label htmlFor="message" className="contact__form-label">Message</label>
-                  <textarea 
-                    id="message" 
-                    name="message" 
-                    className="contact__form-textarea" 
-                    placeholder="Please describe your requirements..."
-                    required
-                  ></textarea>
-                </div>
-
-                <button type="submit" className="btn-submit">
-                  Send Enquiry 
-                  <span className="btn-arrow" aria-hidden="true">→</span>
+                <button type="submit" className="sjmw-submit-btn">
+                  Send Enquiry <span className="sjmw-submit-arrow" aria-hidden="true">→</span>
                 </button>
               </form>
             </div>
           </div>
 
         </div>
+
+        {/* Footer Strip */}
+        <div className="sjmw-contact__footer">
+          <p>© 2026 Sri Jothi Moulding Works. All Rights Reserved.</p>
+          <p>Designed & Developed by Procomets.</p>
+        </div>
+
       </div>
     </section>
   );

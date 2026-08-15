@@ -70,6 +70,7 @@
   height: 900px;
   padding: 0 var(--space-8);
   align-items: center;
+  mix-blend-mode: multiply; /* Blends the entire container (including the white image bg) with the section's grid */
 }
 
 /* ── Left Panel (32%) ────────────────────────────────────────────── */
@@ -78,10 +79,10 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   gap: var(--space-6);
   z-index: 30;
-  height: auto;
+  height: 100%;
 }
 
 /* ── Premium Left Intro ───────────────────────────────────── */
@@ -89,6 +90,7 @@
   position: relative;
   max-width: 95%;
   z-index: 10;
+  margin-top: 8%;
 }
 
 .premium-left-badge {
@@ -96,8 +98,8 @@
   font-size: 0.7rem;
   font-weight: 700;
   letter-spacing: 0.15em;
-  color: #FF5A00;
-  background-color: rgba(255, 90, 0, 0.08);
+  color: #42A5F5;
+  background-color: rgba(66, 165, 245, 0.08);
   padding: 4px 12px;
   border-radius: 20px;
   margin-bottom: var(--space-4);
@@ -142,9 +144,10 @@
 }
 
 .blueprint-line {
-  stroke: rgba(0, 0, 0, 0.18);
-  stroke-width: 0.8px;
+  stroke: rgba(0, 0, 0, 0.25);
+  stroke-width: 1px;
   fill: none;
+  vector-effect: non-scaling-stroke; /* Prevents viewBox scaling from making the line thick */
   transition: stroke 0.4s ease, stroke-width 0.4s ease, filter 0.4s ease;
   stroke-dasharray: 500;
   stroke-dashoffset: 500;
@@ -159,17 +162,24 @@
 }
 
 .blueprint-line.is-active {
-  stroke: #FF5A00;
-  stroke-width: 1px;
-  filter: drop-shadow(0 0 3px rgba(255, 90, 0, 0.4));
+  stroke: #42A5F5 !important;
+  stroke-width: 1.5px !important;
+  filter: drop-shadow(0 0 3px rgba(66, 165, 245, 0.4));
 }
 
 /* ── Premium Labels List (Standard Flow) ──────────────────── */
 .premium-labels-list {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 32px; /* Consistent 32px gap as requested */
+  gap: 40px; /* Match the gap of the right side */
+  justify-content: center;
   align-items: flex-start;
+  z-index: 20; /* Ensure labels are clickable and sit above any invisible elements */
 }
 
 .blueprint-label {
@@ -197,15 +207,15 @@
   transform: translateY(-50%) scaleY(0);
   width: 3px;
   height: 100%;
-  background-color: #FF5A00;
+  background-color: #42A5F5;
   transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
   border-radius: 2px;
-  box-shadow: 0 0 8px rgba(255, 90, 0, 0.4);
+  box-shadow: 0 0 8px rgba(66, 165, 245, 0.4);
 }
 
 .blueprint-label:hover::before,
 .blueprint-label.is-active::before {
-  transform: translateY(-50%) scaleY(1);
+  transform: translateY(-50%) scaleY(1) !important;
 }
 
 .blueprint-label__content {
@@ -231,6 +241,13 @@
   border-radius: 12px;
   margin-bottom: 4px;
   font-weight: 700;
+  transition: all 0.3s ease;
+}
+
+.blueprint-label:hover .premium-label__category,
+.blueprint-label.is-active .premium-label__category {
+  background-color: rgba(66, 165, 245, 0.1) !important;
+  color: #42A5F5 !important;
 }
 
 .blueprint-label__name {
@@ -257,8 +274,9 @@
 
 /* ── Premium Left Footer (Stats) ──────────────────────────── */
 .premium-left-footer {
-  position: relative;
-  margin-top: var(--space-4);
+  position: absolute;
+  bottom: 8%;
+  left: 0;
   z-index: 10;
 }
 
@@ -274,17 +292,16 @@
 }
 
 .premium-catalogue-link:hover {
-  color: #FF5A00;
+  color: #42A5F5;
   transform: translateX(5px);
 }
 
-  min-height: 600px;
-}
+
 
 .blueprint-label:hover .blueprint-label__name,
 .blueprint-label.is-active .blueprint-label__name {
-  font-weight: 700;
-  color: #111;
+  font-weight: 700 !important;
+  color: #42A5F5 !important;
 }
 
 .blueprint-label:hover .blueprint-label__desc,
@@ -338,7 +355,7 @@
 .premium-image-wrapper {
   /* Pull image to the left so it sits close to the text labels */
   position: absolute;
-  top: 15%;
+  top: 5%; /* Shifted slightly to the top from 15% */
   left: -12%; /* Overlap 12% into the left column to reduce line distance */
   width: 112%;
   height: 85%;
@@ -355,7 +372,7 @@
   transform: translate(-50%, -50%);
   width: 80%;
   height: 80%;
-  background: radial-gradient(circle, rgba(255, 90, 0, 0.06) 0%, rgba(255, 255, 255, 0) 70%);
+  background: radial-gradient(circle, rgba(66, 165, 245, 0.06) 0%, rgba(255, 255, 255, 0) 70%);
   border-radius: 50%;
   z-index: 1;
   pointer-events: none;
@@ -368,8 +385,8 @@
   width: auto;
   max-width: none;
   z-index: 2;
-  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.10));
-  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), filter 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+  filter: grayscale(1) contrast(1.15) brightness(1.1); /* Pushes off-white bg to pure white so it vanishes */
+  transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 .is-visible .premium-image {
@@ -383,7 +400,6 @@
 
 .premium-image.is-hovered {
   transform: scale(1.03) rotate(2deg);
-  filter: drop-shadow(0 40px 60px rgba(0,0,0,0.12));
 }
 
 /* ── Dots ─────────────────────────────────────────────────── */
@@ -391,14 +407,14 @@
   position: absolute;
   width: 8px;
   height: 8px;
-  background-color: #FF5A00;
+  background-color: #42A5F5;
   border-radius: 50%;
   transform: translate(-50%, -50%) scale(0);
   z-index: 15;
   cursor: pointer;
   pointer-events: auto;
   transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-  box-shadow: 0 0 0 2px rgba(255, 90, 0, 0.1);
+  box-shadow: 0 0 0 2px rgba(66, 165, 245, 0.1);
 }
 
 .is-visible .premium-dot {
@@ -412,8 +428,8 @@
 .blueprint-dot:hover,
 .blueprint-dot.is-active {
   transform: translate(-50%, -50%) scale(1.8);
-  box-shadow: 0 0 0 8px rgba(255, 90, 0, 0.2), 0 0 15px rgba(255, 90, 0, 0.5);
-  background-color: #FF3300;
+  box-shadow: 0 0 0 8px rgba(66, 165, 245, 0.2), 0 0 15px rgba(66, 165, 245, 0.5);
+  background-color: #42A5F5;
 }
 
 /* ── Floating Details Panel ───────────────────────────────── */
@@ -503,7 +519,7 @@
 
 .premium-app-list li::before {
   content: '•';
-  color: #FF5A00;
+  color: #42A5F5;
   display: inline-block;
   width: 1em;
   margin-left: -1em;
@@ -532,7 +548,7 @@
   margin-top: var(--space-2);
   font-size: var(--font-size-sm);
   font-weight: 700;
-  color: #FF5A00;
+  color: #42A5F5;
   text-decoration: none;
   transition: all 0.3s ease;
   position: relative;
@@ -638,4 +654,46 @@
     transform: translate(-50%, -50%);
     width: 100%;
   }
+}
+
+/* ── View Full Catalogue CTA ─────────────────────────────── */
+.products-catalogue-cta {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -80px;
+  width: 100%;
+  position: relative;
+  z-index: 10;
+}
+
+.btn-full-catalogue {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  background-color: #111111;
+  color: #FFFFFF;
+  font-size: 1.125rem;
+  font-weight: 600;
+  padding: 16px 40px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(21, 59, 102, 0.2);
+}
+
+.btn-full-catalogue:hover {
+  background-color: #42A5F5;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(66, 165, 245, 0.3);
+  color: #FFFFFF;
+}
+
+.btn-full-catalogue .btn-arrow {
+  transition: transform 0.3s ease;
+}
+
+.btn-full-catalogue:hover .btn-arrow {
+  transform: translateX(4px);
 }

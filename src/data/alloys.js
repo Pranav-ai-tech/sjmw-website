@@ -16,7 +16,7 @@ export const alloys = [
     badge: 'STANDARD',
     description: 'General Engineering Castings',
     fullTitle: 'LM4 Aluminium Alloy',
-    applications: ['Engine Components', 'Gearboxes', 'Hand Tools', 'Industrial Housings'],
+    applications: ['Engine Components', 'Gearboxes', 'Hand Tools', 'Industrial Housings', 'Gravity Casting'],
     properties: ['Good Machinability', 'Moderate Strength', 'General Purpose', 'Cost Effective'],
     composition: 'Al-Si5Cu3',
     standard: 'BS 1490 : 1988'
@@ -49,7 +49,7 @@ export const alloys = [
     badge: 'HEAT TREATABLE',
     description: 'Excellent Mechanical Strength',
     fullTitle: 'LM25 Aluminium Alloy',
-    applications: ['Cylinder Blocks', 'Aviation Castings', 'Nuclear Installations', 'Food Handling Equipment'],
+    applications: ['Cylinder Blocks', 'Aviation Castings', 'Nuclear Installations', 'Food Handling Equipment', 'Gravity Casting'],
     properties: ['High Strength', 'Excellent Corrosion Resistance', 'Good Weldability', 'Heat Treatable'],
     composition: 'Al-Si7Mg',
     standard: 'BS 1490 : 1988'
@@ -60,7 +60,7 @@ export const alloys = [
     badge: 'PREMIUM',
     description: 'Exceptional Weldability',
     fullTitle: 'A356 Aluminium Alloy',
-    applications: ['Aircraft Pump Parts', 'Automotive Transmission Cases', 'Water-Cooled Jackets', 'High-Strength Structures'],
+    applications: ['Aircraft Pump Parts', 'Automotive Transmission Cases', 'Water-Cooled Jackets', 'High-Strength Structures', 'Gravity Casting'],
     properties: ['Exceptional Elongation', 'High Tensile Strength', 'Excellent Weldability', 'Premium Quality'],
     composition: 'Al-Si7Mg0.3',
     standard: 'ASTM B108'
@@ -71,7 +71,7 @@ export const alloys = [
     badge: 'MARINE',
     description: 'Enhanced Marine Grade',
     fullTitle: 'LM6J Aluminium Alloy',
-    applications: ['Offshore Equipment', 'Marine Hardware', 'Chemical Plant Parts', 'Corrosive Environment Castings'],
+    applications: ['Offshore Equipment', 'Marine Hardware', 'Chemical Plant Parts', 'Corrosive Environment Castings', 'Customized'],
     properties: ['Superior Saltwater Resistance', 'Excellent Fluidity', 'High Impact Strength', 'Low Shrinkage'],
     composition: 'Al-Si12(Fe)',
     standard: 'BS 1490 : 1988'
@@ -104,7 +104,7 @@ export const alloys = [
     badge: 'SPECIALTY',
     description: 'Specialty Master Alloy',
     fullTitle: 'MM2/30 Master Alloy',
-    applications: ['Grain Refining', 'Alloy Modification', 'Melt Treatment', 'Foundry Additions'],
+    applications: ['Grain Refining', 'Alloy Modification', 'Melt Treatment', 'Foundry Additions', 'Customized'],
     properties: ['Precise Composition', 'Fast Dissolution', 'High Purity', 'Consistent Results'],
     composition: 'Al-X',
     standard: 'Internal Standard'
@@ -148,7 +148,7 @@ export const alloys = [
     badge: 'POPULAR',
     description: 'Versatile Casting Alloy',
     fullTitle: 'AC4B Aluminium Alloy',
-    applications: ['Intake Manifolds', 'Cylinder Heads', 'Brake Calipers', 'Engine Mounts'],
+    applications: ['Intake Manifolds', 'Cylinder Heads', 'Brake Calipers', 'Engine Mounts', 'Gravity Casting'],
     properties: ['Good Castability', 'High Mechanical Properties', 'Excellent Machinability', 'Thermal Resistance'],
     composition: 'Al-Si7Cu3Mg',
     standard: 'JIS H 5202'

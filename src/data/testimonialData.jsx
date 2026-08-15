@@ -4,7 +4,7 @@ export const testimonialData = [
     company: "ESS VEE ENTERPRISES",
     industry: "ALUMINIUM COMPONENTS",
     location: "CHENNAI",
-    text: "The batch-to-batch consistency of SJMW's aluminium alloys has been a game-changer for our production line. Since switching, our rejection rates have plummeted, saving us significant time and material costs. Their commitment to quality ensures every ingot meets our exact specifications without fail.",
+    text: "The batch-to-batch consistency of SJMW's aluminium alloys has been a game-changer. Our rejection rates have plummeted, saving us significant time and material costs. Their commitment ensures every ingot meets our exact specifications without fail.",
     icon: (
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
         <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
@@ -16,7 +16,7 @@ export const testimonialData = [
     company: "DIAMOND CASTINGS PVT LTD",
     industry: "INDUSTRIAL CASTINGS",
     location: "CHENNAI",
-    text: "In the industrial castings sector, material purity dictates the final product's integrity. SJMW consistently delivers flawless alloy compositions with high purity levels. Their reliable on-time delivery schedules have kept our production lines running smoothly without a single disruption throughout the entire year.",
+    text: "In industrial castings, material purity dictates product integrity. SJMW consistently delivers flawless alloy compositions with high purity levels. Their reliable on-time delivery schedules have kept our production lines running smoothly without a single disruption.",
     icon: null
   },
   {
@@ -24,7 +24,7 @@ export const testimonialData = [
     company: "PIONEER INDUSTRIES & FOUNDRY",
     industry: "FOUNDRY & ENGINEERING",
     location: "AMBATTUR, CHENNAI",
-    text: "A reliable partner for over a decade. The technical support and material consistency provided by Sri Jothi Moulding Works is exceptional. Their deep understanding of foundry requirements and proactive problem-solving have made them an indispensable part of our long-term engineering success.",
+    text: "A reliable partner for over a decade. The technical support and material consistency provided by SJMW is exceptional. Their deep understanding of foundry requirements and proactive problem-solving make them an indispensable part of our success.",
     icon: null
   },
   {
@@ -32,7 +32,7 @@ export const testimonialData = [
     company: "G.S.S METAL COMPANY",
     industry: "METAL MANUFACTURING",
     location: "GUINDY, CHENNAI",
-    text: "We value SJMW for their unparalleled metallurgical expertise and transparent communication. They are more than just a supplier; they act as technical consultants who help us optimize our manufacturing processes. Their honesty regarding lead times and material specs is refreshing in this industry.",
+    text: "We value SJMW for their unparalleled metallurgical expertise and transparent communication. They act as technical consultants who help us optimize our manufacturing processes. Their honesty regarding lead times and specs is refreshing.",
     icon: null
   },
   {
@@ -40,7 +40,7 @@ export const testimonialData = [
     company: "SHANTHI SREE AUTO COMPONENTS",
     industry: "AUTOMOTIVE COMPONENTS",
     location: "CHENNAI",
-    text: "Automotive components require zero tolerance for material defects. SJMW provides us with the zero-defect quality confidence needed to guarantee our parts to leading OEMs. Their ingot quality is consistently the benchmark we measure all other suppliers against, ensuring absolute manufacturing excellence.",
+    text: "Automotive components require zero tolerance for material defects. SJMW provides the zero-defect quality confidence needed to guarantee our parts to leading OEMs. Their ingot quality is consistently the benchmark we measure all other suppliers against.",
     icon: null
   },
   {
@@ -48,7 +48,7 @@ export const testimonialData = [
     company: "SUPER ALLOYS AND CASTINGS",
     industry: "ALUMINIUM ALLOY CASTINGS",
     location: "CHENNAI",
-    text: "SJMW's ability to produce custom alloy blends with manufacturing excellence is what sets them apart. Their precision in meeting our unique metallurgical requirements has allowed us to expand our product range into high-performance sectors. Truly a leader in aluminium alloy production.",
+    text: "SJMW's ability to produce custom alloy blends with manufacturing excellence sets them apart. Their precision in meeting our unique metallurgical requirements has allowed us to expand into high-performance sectors. Truly a leader in aluminium production.",
     icon: null
   }
 ];

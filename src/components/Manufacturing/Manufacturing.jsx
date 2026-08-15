@@ -1,98 +1,176 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Manufacturing.css';
 import { manufacturingSteps } from '../../data/manufacturingSteps';
-import ProcessCard from './ProcessCard';
 import { useScrollReveal } from '../../hooks/useScrollReveal';
-import manufacturingImage from '../../assets/manufacturing-process.png';
 
-/**
- * Manufacturing Section Component
- * 
- * Showcases the 6-step manufacturing process using a 3-column layout on desktop.
- * Left: Steps 1-3, Center: Image, Right: Steps 4-6.
- */
-export default function Manufacturing() {
-  const { ref, isVisible } = useScrollReveal();
-  const stats = [
-    { number: '36+', label: 'Years of Manufacturing', icon: '◷' },
-    { number: '5000+', label: 'Tons Manufactured', icon: '⛟' },
-    { number: '100%', label: 'Composition Tested', icon: '⚗' },
-    { number: '99%', label: 'Quality Assurance', icon: '✓' }
-  ];
+/* ─────────────────────────────────────────────────────────────
+   TimelineStage — one row of the vertical timeline
+───────────────────────────────────────────────────────────── */
+function TimelineStage({ step, isActive, side, entryVisible, index }) {
+  const isLeft = side === 'left';
 
   return (
-    <section 
-      id="manufacturing" 
-      className={`manufacturing-section reveal-section ${isVisible ? 'is-visible' : ''}`} 
-      aria-labelledby="manufacturing-heading"
-      ref={ref}
+    <div
+      className={`tl-stage ${isActive ? 'is-active' : ''} tl-stage--${side}`}
+      style={{ '--stage-delay': `${index * 0.12}s` }}
     >
-      
-      {/* Background Elements */}
-      <div className="manufacturing__noise" aria-hidden="true" />
-      
-      <div className="manufacturing__container">
-        
-        {/* Section Header */}
-        <header className="manufacturing__header">
-          <div className="manufacturing__label">
-            <span className="manufacturing__label-dot"></span>
+      {/* ── Left-side content (odd steps: 1,3,5) ── */}
+      <div className={`tl-stage__content tl-stage__content--left ${isLeft ? 'has-content' : ''} ${entryVisible ? 'is-entered' : ''}`}>
+        {isLeft && (
+          <>
+            <span className="tl-stage__badge">{step.badge}</span>
+            <h3 className="tl-stage__title">{step.title}</h3>
+            <p className="tl-stage__desc">{step.description}</p>
+          </>
+        )}
+      </div>
+
+      {/* ── Central Node ── */}
+      <div className="tl-stage__node-col">
+        {/* Connector dot from content side to node */}
+        <div className="tl-stage__arm" />
+
+        {/* The numbered circle */}
+        <div className="tl-node">
+          <span className="tl-node__num">{String(step.id).padStart(2, '0')}</span>
+          <div className="tl-node__glow" aria-hidden="true" />
+        </div>
+
+        {/* Connector dot on the other side */}
+        <div className="tl-stage__arm tl-stage__arm--right" />
+      </div>
+
+      {/* ── Right-side content (even steps: 2,4,6) ── */}
+      <div className={`tl-stage__content tl-stage__content--right ${!isLeft ? 'has-content' : ''} ${entryVisible ? 'is-entered' : ''}`}>
+        {!isLeft && (
+          <>
+            <span className="tl-stage__badge">{step.badge}</span>
+            <h3 className="tl-stage__title">{step.title}</h3>
+            <p className="tl-stage__desc">{step.description}</p>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Manufacturing — main section
+───────────────────────────────────────────────────────────── */
+export default function Manufacturing() {
+  const { ref: sectionRef, isVisible } = useScrollReveal(0.05);
+  const timelineRef = useRef(null);
+
+  // scrollProgress: 0 → 1 — how far down the section user has scrolled
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  // Which stage is currently "active" based on scroll position
+  const [activeId, setActiveId] = useState(0);
+
+  // Track which stages have become visible (for entrance animation, trigger once)
+  const [enteredStages, setEnteredStages] = useState(new Set());
+
+  // ── Scroll listener: drives the timeline progress line downward ──
+  useEffect(() => {
+    if (!isVisible || !sectionRef.current) return;
+
+    const onScroll = () => {
+      const section = sectionRef.current;
+      if (!section) return;
+      const { top, height } = section.getBoundingClientRect();
+      const viewH = window.innerHeight;
+
+      // progress: 0 when section top is at bottom of viewport, 1 when section bottom is at top
+      const raw = (viewH - top) / (height + viewH);
+      const progress = Math.max(0, Math.min(1, raw));
+      setScrollProgress(progress);
+
+      // Determine active stage (0 = none yet)
+      const stageCount = manufacturingSteps.length;
+      const perStage = 1 / stageCount;
+      const currentStage = Math.ceil(progress / perStage);
+      const clampedStage = Math.max(0, Math.min(stageCount, currentStage));
+      setActiveId(clampedStage);
+
+      // Mark stages as permanently entered once they become active
+      setEnteredStages((prev) => {
+        if (clampedStage > 0 && !prev.has(clampedStage)) {
+          const next = new Set(prev);
+          // Add all stages up to current
+          for (let i = 1; i <= clampedStage; i++) next.add(i);
+          return next;
+        }
+        return prev;
+      });
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll(); // run once immediately
+    return () => window.removeEventListener('scroll', onScroll);
+  }, [isVisible]);
+
+  return (
+    <section
+      id="manufacturing"
+      className={`mfg-section ${isVisible ? 'is-visible' : ''}`}
+      aria-labelledby="mfg-heading"
+      ref={sectionRef}
+    >
+      {/* Subtle technical grid */}
+      <div className="mfg-bg-grid" aria-hidden="true" />
+
+      <div className="mfg-container">
+
+        {/* ── Section Header ────────────────────────────────── */}
+        <header className={`mfg-header ${isVisible ? 'is-visible' : ''}`}>
+          <div className="mfg-eyebrow">
+            <span className="mfg-eyebrow__dot" aria-hidden="true" />
             Manufacturing Excellence
           </div>
-          <h2 id="manufacturing-heading" className="manufacturing__title">
-            Our Aluminium <span className="manufacturing__title-highlight">Manufacturing</span> Process
+          <h2 id="mfg-heading" className="mfg-heading">
+            Our Aluminium{' '}
+            <span className="mfg-heading__accent">Manufacturing</span>{' '}
+            Process
           </h2>
-          <p className="manufacturing__subtitle">
-            At Sri Jothi Moulding Works, every aluminium alloy ingot is manufactured through a carefully 
-            controlled production process, combining advanced technology, skilled craftsmanship, and 
+          <p className="mfg-subheading">
+            At Sri Jothi Moulding Works, every aluminium alloy ingot is manufactured through a carefully
+            controlled production process, combining advanced technology, skilled craftsmanship, and
             rigorous quality control to deliver premium industrial-grade aluminium alloys.
           </p>
         </header>
 
-        {/* Main Layout (3 Columns on Desktop) */}
-        <div className="manufacturing__main">
-          
-          {/* Left Column (Steps 1-3) */}
-          <div className="manufacturing__col-left">
-            {manufacturingSteps.slice(0, 3).map((step, index) => (
-              <ProcessCard key={step.id} step={step} index={index} />
-            ))}
+        {/* ── Vertical Timeline ────────────────────────────── */}
+        <div className="tl-wrapper" ref={timelineRef}>
+
+          {/* ── The backbone vertical line ── */}
+          <div className="tl-track">
+            {/* Gray base line */}
+            <div className="tl-track__base" />
+            {/* Blue progress line — grows downward via scaleY */}
+            <div
+              className="tl-track__progress"
+              style={{ transform: `scaleY(${scrollProgress})` }}
+            />
           </div>
 
-          {/* Center Column (Image) */}
-          <div className="manufacturing__col-center">
-            <div className="manufacturing__image-glow" aria-hidden="true"></div>
-            <div className="manufacturing__image-wrapper">
-              <img 
-                src={manufacturingImage} 
-                alt="Molten aluminium being poured in a state-of-the-art facility" 
-                className="manufacturing__image" 
+          {/* ── Stages ── */}
+          {manufacturingSteps.map((step, index) => {
+            const side = index % 2 === 0 ? 'left' : 'right';
+            return (
+              <TimelineStage
+                key={step.id}
+                step={step}
+                isActive={activeId >= step.id}
+                side={side}
+                entryVisible={enteredStages.has(step.id)}
+                index={index}
               />
-            </div>
-            {/* Optional subtle connectors */}
-            <div className="manufacturing__connector"></div>
-          </div>
+            );
+          })}
 
-          {/* Right Column (Steps 4-6) */}
-          <div className="manufacturing__col-right">
-            {manufacturingSteps.slice(3, 6).map((step, index) => (
-              <ProcessCard key={step.id} step={step} index={index + 3} />
-            ))}
-          </div>
-          
-        </div>
+        </div>{/* /tl-wrapper */}
 
-        {/* Bottom Statistics */}
-        <div className="manufacturing-stats">
-          {stats.map((stat, idx) => (
-            <div key={idx} className="m-stat-card">
-              <span className="m-stat-card__number">{stat.number}</span>
-              <span className="m-stat-card__label">{stat.label}</span>
-            </div>
-          ))}
-        </div>
-        
-      </div>
+      </div>{/* /mfg-container */}
     </section>
   );
 }

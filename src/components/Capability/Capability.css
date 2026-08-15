@@ -1,0 +1,308 @@
+/* ============================================================
+   Capability Section Styles
+   Sri Jothi Moulding Works
+   ============================================================ */
+
+.sjmw-capability {
+  background-color: #FAFAF8;
+  padding: 100px 0;
+  position: relative;
+  overflow: hidden;
+  font-family: var(--font-primary, 'Inter', sans-serif);
+}
+
+.sjmw-capability__container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ── Header ──────────────────────────────────────────────── */
+.sjmw-capability__header {
+  text-align: center;
+  max-width: 800px;
+  margin-bottom: 60px;
+  position: relative;
+  z-index: 10;
+}
+
+.sjmw-capability__title {
+  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  font-weight: 800;
+  color: #111111;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  margin: 0 0 24px 0;
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.sjmw-capability__subtitle {
+  font-size: 1.125rem;
+  color: #6B7280;
+  line-height: 1.6;
+  margin: 0 0 32px 0;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.sjmw-capability__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background-color: #111111;
+  color: #FFFFFF;
+  font-size: 1.05rem;
+  font-weight: 600;
+  padding: 14px 36px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.sjmw-capability__cta:hover {
+  background-color: #42A5F5;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 25px rgba(66, 165, 245, 0.3);
+}
+
+.sjmw-capability__cta span {
+  transition: transform 0.3s ease;
+}
+
+.sjmw-capability__cta:hover span {
+  transform: translateX(4px);
+}
+
+/* Header Animations */
+.sjmw-capability__header.is-visible .sjmw-capability__title {
+  animation: capFadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+.sjmw-capability__header.is-visible .sjmw-capability__subtitle {
+  animation: capFadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 0.15s;
+}
+
+.sjmw-capability__header.is-visible .sjmw-capability__cta {
+  animation: capFadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards 0.3s;
+}
+
+/* ── Visual Map Area ─────────────────────────────────────── */
+.sjmw-capability__visual {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  height: 700px;
+  margin-top: 40px;
+  perspective: 1200px;
+}
+
+/* Dotted Map Pattern (Abstract) */
+.sjmw-capability__map-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(#153B66 2px, transparent 2px);
+  background-size: 8px 8px;
+  mask-image: url('../../assets/world-map.svg');
+  -webkit-mask-image: url('../../assets/world-map.svg');
+  mask-size: 100% auto;
+  -webkit-mask-size: 100% auto;
+  mask-repeat: no-repeat;
+  -webkit-mask-repeat: no-repeat;
+  mask-position: top center;
+  -webkit-mask-position: top center;
+  opacity: 0;
+  transform: rotateX(15deg) scale(1.05);
+  transform-origin: center 40%;
+  transition: opacity 1.5s ease;
+}
+
+.sjmw-capability__visual.is-visible .sjmw-capability__map-bg {
+  opacity: 0.6;
+}
+
+/* Connecting Lines */
+.sjmw-capability__lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+  transform: rotateX(15deg) scale(1.05);
+  transform-origin: center 40%;
+}
+
+.sjmw-capability__path {
+  fill: none;
+  stroke: #153B66;
+  stroke-width: 2px;
+  opacity: 0.7;
+  stroke-dasharray: 4 6;
+  stroke-dashoffset: 1000;
+}
+
+.sjmw-capability__node {
+  fill: #42A5F5;
+  opacity: 0;
+  transform-origin: center;
+}
+
+/* Visual Animations */
+.sjmw-capability__visual.is-visible .sjmw-capability__path {
+  animation: drawCapPath 3s linear forwards;
+}
+
+.sjmw-capability__visual.is-visible .sjmw-capability__node {
+  animation: capPulseNode 2s ease infinite alternate forwards;
+}
+
+@keyframes drawCapPath {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes capPulseNode {
+  0% { opacity: 0; transform: scale(0.5); }
+  50% { opacity: 1; transform: scale(1.5); box-shadow: 0 0 10px rgba(66, 165, 245, 0.5); }
+  100% { opacity: 0.8; transform: scale(1); }
+}
+
+/* ── Floating Statistic Cards ────────────────────────────── */
+.sjmw-capability__cards {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.sjmw-stat-card {
+  position: absolute;
+  background-color: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 12px;
+  padding: 24px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+  pointer-events: auto;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.sjmw-stat-card__indicator {
+  width: 8px;
+  height: 8px;
+  background-color: #42A5F5;
+  border-radius: 50%;
+  margin-top: 6px;
+  flex-shrink: 0;
+  box-shadow: 0 0 8px rgba(66, 165, 245, 0.4);
+}
+
+.sjmw-stat-card__content {
+  display: flex;
+  flex-direction: column;
+}
+
+.sjmw-stat-card__label {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #42A5F5;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.sjmw-stat-card__value {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #153B66;
+  line-height: 1;
+  margin-bottom: 8px;
+  letter-spacing: -0.03em;
+}
+
+.sjmw-stat-card__desc {
+  font-size: 0.9rem;
+  color: #6B7280;
+  font-weight: 500;
+}
+
+/* Card Positions for Desktop */
+.card-1 { top: 25%; left: 0; }
+.card-2 { top: 60%; left: 25%; }
+.card-3 { top: 30%; right: 5%; }
+.card-4 { top: 70%; right: -10px; }
+
+/* Card Animations */
+.sjmw-capability__visual.is-visible .card-1 { animation: capFadeUp 0.8s forwards 0.4s; }
+.sjmw-capability__visual.is-visible .card-2 { animation: capFadeUp 0.8s forwards 0.6s; }
+.sjmw-capability__visual.is-visible .card-3 { animation: capFadeUp 0.8s forwards 0.8s; }
+.sjmw-capability__visual.is-visible .card-4 { animation: capFadeUp 0.8s forwards 1.0s; }
+
+@keyframes capFadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Responsive Adjustments ──────────────────────────────── */
+@media (max-width: 1024px) {
+  .sjmw-capability__visual {
+    height: auto;
+    min-height: 400px;
+  }
+  
+  .sjmw-capability__map-bg,
+  .sjmw-capability__lines {
+    display: none; /* Hide the complex abstract visual on smaller screens to keep it clean */
+  }
+
+  .sjmw-capability__cards {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    height: auto;
+  }
+
+  .sjmw-stat-card {
+    position: relative;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    bottom: auto !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .sjmw-capability {
+    padding: 60px 0;
+  }
+
+  .sjmw-capability__container {
+    padding: 0 24px;
+  }
+
+  .sjmw-capability__title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .sjmw-capability__cards {
+    grid-template-columns: 1fr;
+  }
+}

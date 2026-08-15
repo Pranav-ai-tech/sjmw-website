@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link } from 'react-router-dom';
 import './Products.css';
 import ingotImg from '../../assets/premium_aluminium_ingot_stack.png';
 import { useScrollReveal } from '../../hooks/useScrollReveal';
@@ -13,7 +14,7 @@ const ALLOY_DATA = [
     desc: 'Excellent corrosion resistance',
     app: 'Marine Components',
     properties: ['High Fluidity', 'Corrosion Resistant', 'Good Weldability'],
-    targetX: '46', targetY: '38', side: 'left'
+    targetX: '42', targetY: '38', side: 'left'
   },
   {
     id: 'adc12',
@@ -22,7 +23,7 @@ const ALLOY_DATA = [
     desc: 'High Pressure Die Casting',
     app: 'Gear Housings',
     properties: ['Excellent Flow', 'Good Thermal Conductivity', 'High Production Rate'],
-    targetX: '52', targetY: '46', side: 'left'
+    targetX: '38', targetY: '48', side: 'left'
   },
   {
     id: 'lm24',
@@ -31,7 +32,7 @@ const ALLOY_DATA = [
     desc: 'Excellent machinability',
     app: 'Industrial Components',
     properties: ['High Yield Strength', 'Excellent Castability', 'Good Machinability'],
-    targetX: '55', targetY: '56', side: 'left'
+    targetX: '34', targetY: '58', side: 'left'
   },
   {
     id: 'a356',
@@ -40,7 +41,7 @@ const ALLOY_DATA = [
     desc: 'Heat Treatable Alloy',
     app: 'Automotive Wheels',
     properties: ['Exceptional Elongation', 'High Tensile Strength', 'Excellent Weldability'],
-    targetX: '53', targetY: '65', side: 'left'
+    targetX: '63', targetY: '38', side: 'right'
   },
   {
     id: 'lm25',
@@ -49,7 +50,7 @@ const ALLOY_DATA = [
     desc: 'High Strength',
     app: 'Marine Engineering',
     properties: ['High Strength', 'Excellent Corrosion Resistance', 'Heat Treatable'],
-    targetX: '72', targetY: '70', side: 'right'
+    targetX: '68', targetY: '48', side: 'right'
   },
   {
     id: 'ac4b',
@@ -58,7 +59,7 @@ const ALLOY_DATA = [
     desc: 'General Engineering Alloy',
     app: 'Precision Castings',
     properties: ['Good Castability', 'High Hardness', 'Wear Resistance'],
-    targetX: '70', targetY: '78', side: 'right'
+    targetX: '73', targetY: '58', side: 'right'
   }
 ];
 
@@ -159,7 +160,7 @@ export default function Products() {
       <div className={`products-section-header ${isVisible ? 'is-visible' : ''}`}>
         <h2 className="products-section-heading animate-fade-up">Our Products</h2>
         <p className="products-section-subtitle animate-fade-up" style={{ animationDelay: '0.15s' }}>
-          Premium aluminium alloy ingots for every industrial application.
+          Premium aluminium alloy ingots engineered for consistent quality, reliable performance, and demanding industrial applications.
         </p>
       </div>
 
@@ -168,15 +169,7 @@ export default function Products() {
         {/* Left Side: Structured 40% Column */}
         <div className="products-blueprint__left">
           
-          <div className="premium-left-intro">
-            <span className="premium-left-badge animate-fade-down">PREMIUM ALUMINIUM ALLOYS</span>
-            <h2 className="premium-left-title animate-fade-down">
-              Our Aluminium Alloy Products
-            </h2>
-            <p className="premium-left-desc animate-fade-up">
-              Engineered Aluminium Alloys for Every Industry. SJMW manufactures world-class aluminium alloy ingots with uncompromising precision. From marine engineering to automotive die casting, our alloys form the backbone of modern industry.
-            </p>
-          </div>
+
 
           <div className="premium-labels-list">
             {LEFT_ALLOYS.map((alloy) => {
@@ -189,8 +182,8 @@ export default function Products() {
                     hoveredAlloy === alloy.id || selectedAlloy?.id === alloy.id ? 'is-active' : ''
                   }`}
                   style={{ animationDelay: `${0.2 + index * 0.1}s` }}
-                  onMouseEnter={() => !isMobile && setHoveredAlloy(alloy.id)}
-                  onMouseLeave={() => !isMobile && setHoveredAlloy(null)}
+                  onMouseEnter={() => setHoveredAlloy(alloy.id)}
+                  onMouseLeave={() => setHoveredAlloy(null)}
                   onClick={() => setSelectedAlloy(selectedAlloy?.id === alloy.id ? null : alloy)}
                 >
                   <div className="blueprint-label__content">
@@ -213,11 +206,7 @@ export default function Products() {
             })}
           </div>
 
-          <div className="premium-left-footer">
-            <a href="/products" className="premium-catalogue-link animate-fade-up">
-              View Complete Catalogue →
-            </a>
-          </div>
+
 
         </div>
 
@@ -294,7 +283,7 @@ export default function Products() {
                   <path 
                     key={`path-${alloy.id}`}
                     className={`blueprint-line premium-line ${hoveredAlloy === alloy.id || selectedAlloy?.id === alloy.id ? 'is-active' : ''}`}
-                    d={generatePath(coords.startX, coords.startY, alloy.targetX, alloy.targetY)}
+                    d={generatePath(coords.startX, coords.startY, alloy.targetX, coords.startY)}
                     style={{ animationDelay: `${0.2 + index * 0.1}s` }}
                   />
                 );
@@ -302,18 +291,29 @@ export default function Products() {
             </svg>
           )}
 
-          {!isMobile && ALLOY_DATA.map((alloy, index) => (
-            <div 
-              key={`dot-${alloy.id}`}
-              className={`blueprint-dot premium-dot ${hoveredAlloy === alloy.id || selectedAlloy?.id === alloy.id ? 'is-active' : ''}`}
-              style={{ top: `${alloy.targetY}%`, left: `${alloy.targetX}%`, animationDelay: `${0.5 + index * 0.1}s` }}
-              onMouseEnter={() => setHoveredAlloy(alloy.id)}
-              onMouseLeave={() => setHoveredAlloy(null)}
-              onClick={() => setSelectedAlloy(alloy)}
-            />
-          ))}
+          {!isMobile && ALLOY_DATA.map((alloy, index) => {
+            const coords = lineCoords[index];
+            const dotY = coords ? coords.startY : alloy.targetY;
+            return (
+              <div 
+                key={`dot-${alloy.id}`}
+                className={`blueprint-dot premium-dot ${hoveredAlloy === alloy.id || selectedAlloy?.id === alloy.id ? 'is-active' : ''}`}
+                style={{ top: `${dotY}%`, left: `${alloy.targetX}%`, animationDelay: `${0.5 + index * 0.1}s` }}
+                onMouseEnter={() => setHoveredAlloy(alloy.id)}
+                onMouseLeave={() => setHoveredAlloy(null)}
+                onClick={() => setSelectedAlloy(alloy)}
+              />
+            );
+          })}
         </div>
 
+      </div>
+      
+      {/* View Full Catalogue CTA */}
+      <div className="products-catalogue-cta animate-fade-up" style={{ animationDelay: '0.8s' }}>
+        <Link to="/products/catalogue" className="btn-full-catalogue">
+          View Full Catalogue <span className="btn-arrow" aria-hidden="true">→</span>
+        </Link>
       </div>
     </section>
   );

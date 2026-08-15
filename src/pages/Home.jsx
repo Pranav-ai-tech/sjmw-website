@@ -4,7 +4,7 @@ import Products from '../components/Products/Products';
 import Manufacturing from '../components/Manufacturing/Manufacturing';
 import Quality from '../components/Quality/Quality';
 import Testimonials from '../components/Testimonials/Testimonials';
-import Contact from '../components/Contact/Contact';
+import Capability from '../components/Capability/Capability';
 
 
 /**
@@ -23,7 +23,7 @@ export default function Home() {
       <Manufacturing />
       <Quality />
       <Testimonials />
-      <Contact />
+      <Capability />
 
 
       {/*
