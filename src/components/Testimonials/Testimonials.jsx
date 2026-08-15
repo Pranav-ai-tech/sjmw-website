@@ -28,16 +28,9 @@ export default function Testimonials() {
         
         {/* Header */}
         <header className="sjmw-testimonials__header">
-          <div className="sjmw-testimonials__label animate-fade-up">
-            <span className="sjmw-testimonials__label-dot"></span>
-            CLIENT TESTIMONIALS
-          </div>
           <h2 className="sjmw-testimonials__title animate-fade-up" style={{ animationDelay: '0.1s' }}>
-            What Our Clients Say
+            What our Clients say!
           </h2>
-          <p className="sjmw-testimonials__subtitle animate-fade-up" style={{ animationDelay: '0.2s' }}>
-            Hear from the businesses and professionals who trust Sri Jothi Moulding Works for consistent quality and reliable aluminium alloy solutions.
-          </p>
         </header>
 
         {/* Marquee Area */}

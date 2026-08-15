@@ -1,5 +1,5 @@
-import React, { useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useMemo, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { alloys } from '../../data/alloys';
 import './Catalogue.css';
 
@@ -13,8 +13,23 @@ const CATEGORIES = [
 ];
 
 export default function Catalogue() {
+  const location = useLocation();
   const [searchTerm, setSearchTerm] = useState('');
-  const [activeCategory, setActiveCategory] = useState('All');
+  
+  const initialCategory = location.state?.category || 'All';
+  const [activeCategory, setActiveCategory] = useState(initialCategory);
+
+  // Sync category if navigated from footer while already on the page
+  useEffect(() => {
+    if (location.state?.category) {
+      setActiveCategory(location.state.category);
+    }
+  }, [location.state?.category]);
+
+  // Scroll to top on mount or location change
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
 
   // Filter logic
   const filteredAlloys = useMemo(() => {

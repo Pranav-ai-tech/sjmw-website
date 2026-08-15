@@ -5,9 +5,9 @@
 
 .sjmw-testimonials {
   position: relative;
-  background-color: #FAFAF8;
+  background-color: #FFFFFF;
   padding: 100px 0;
-  overflow: hidden; /* Prevent horizontal scroll on BODY */
+  overflow: hidden;
   color: #111111;
   font-family: var(--font-primary, 'Inter', sans-serif);
 }
@@ -27,8 +27,7 @@
 .sjmw-testimonials__container {
   position: relative;
   z-index: 2;
-  max-width: 1400px;
-  margin: 0 auto;
+  width: 100%;
   display: flex;
   flex-direction: column;
 }
@@ -62,12 +61,23 @@
 }
 
 .sjmw-testimonials__title {
-  font-size: clamp(2.5rem, 4vw, 3.5rem);
+  font-size: clamp(2rem, 3vw, 2.5rem);
   font-weight: 800;
   line-height: 1.1;
   letter-spacing: -0.02em;
   color: #111111;
-  margin: 0 0 16px 0;
+  margin: 0;
+  position: relative;
+}
+
+.sjmw-testimonials__title::after {
+  content: '';
+  display: block;
+  width: 60px;
+  height: 3px;
+  background-color: #42A5F5;
+  margin: 16px auto 0;
+  border-radius: 2px;
 }
 
 .sjmw-testimonials__subtitle {
@@ -100,12 +110,12 @@
 
 .sjmw-testimonials__edge--left {
   left: 0;
-  background: linear-gradient(to right, #FAFAF8 0%, transparent 100%);
+  background: linear-gradient(to right, #FFFFFF 0%, transparent 100%);
 }
 
 .sjmw-testimonials__edge--right {
   right: 0;
-  background: linear-gradient(to left, #FAFAF8 0%, transparent 100%);
+  background: linear-gradient(to left, #FFFFFF 0%, transparent 100%);
 }
 
 /* ── Marquee Rows & Tracks ────────────────────────────────── */
@@ -155,17 +165,49 @@
 
 /* ── Testimonial Card ────────────────────────────────────── */
 .sjmw-testimonial-card {
+  position: relative;
   background: #FFFFFF;
-  border: 1px solid #E5E7EB;
-  border-radius: 14px;
-  padding: 32px;
-  width: 340px;
-  min-height: 200px;
+  border: none;
+  border-radius: 20px;
+  padding: 40px 32px;
+  width: 320px;
+  min-height: 260px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
-  transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+  gap: 16px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+.sjmw-testimonial-card::before {
+  content: '“';
+  position: absolute;
+  font-family: serif;
+  font-size: 180px;
+  color: #F3F4F6;
+  top: -40px;
+  left: 10px;
+  z-index: 0;
+  line-height: 1;
+}
+
+.sjmw-testimonial-card::after {
+  content: '”';
+  position: absolute;
+  font-family: serif;
+  font-size: 180px;
+  color: #F3F4F6;
+  bottom: -90px;
+  right: 10px;
+  z-index: 0;
+  line-height: 1;
+}
+
+.sjmw-testimonial-card__header,
+.sjmw-testimonial-card__text {
+  position: relative;
+  z-index: 1;
 }
 
 .sjmw-testimonial-card__header {
@@ -173,66 +215,56 @@
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 12px;
+  gap: 8px;
+  margin-bottom: 8px;
 }
 
 .sjmw-testimonial-card__avatar {
-  width: 48px;
-  height: 48px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
-  background-color: #FAFAF8;
-  border: 1px solid #E5E7EB;
+  background-color: #111111;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 4px;
 }
 
 .sjmw-testimonial-card__avatar svg {
-  width: 20px;
-  height: 20px;
-  color: #153B66; /* Navy */
+  width: 24px;
+  height: 24px;
+  color: #FFFFFF;
 }
 
 .sjmw-testimonial-card__info {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  align-items: center;
 }
 
 .sjmw-testimonial-card__name {
-  font-size: 1.1rem;
-  font-weight: 600;
+  font-size: 1rem;
+  font-weight: 700;
   color: #111111;
   line-height: 1.2;
 }
 
 .sjmw-testimonial-card__role {
-  font-size: 0.75rem;
-  font-weight: 600;
-  color: #6B7280;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  display: none; /* Hidden to match design */
 }
 
 .sjmw-testimonial-card__text {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: #4B5563;
   line-height: 1.6;
   margin: 0;
-  text-align: center;
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  text-align: left;
 }
 
 /* Hover Interaction on Individual Card */
 .sjmw-testimonial-card:hover {
-  transform: scale(1.02);
-  border-color: #42A5F5;
-  box-shadow: 0 10px 25px -5px rgba(66, 165, 245, 0.15), 0 8px 10px -6px rgba(66, 165, 245, 0.1);
-  z-index: 10;
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
 }
 
 /* ── Entrance Animations ─────────────────────────────────── */

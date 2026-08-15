@@ -42,6 +42,13 @@
   transition: all var(--transition-slow);
 }
 
+/* Hidden state when scrolling down */
+.navbar.hidden {
+  transform: translate(-50%, calc(-100% - 16px));
+  opacity: 0;
+  pointer-events: none;
+}
+
 /* Scrolled state — solid white pill */
 .navbar.scrolled {
   --nav-bg: var(--color-white);

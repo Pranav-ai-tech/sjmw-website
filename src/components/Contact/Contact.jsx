@@ -80,13 +80,13 @@ export default function Contact() {
           <div className="sjmw-contact__col sjmw-contact__col--links animate-fade-up" style={{ animationDelay: '0.4s' }}>
             <h4 className="sjmw-contact__col-title">Quick Links</h4>
             <ul className="sjmw-contact__link-list">
-              <li><a href="#home">Home</a></li>
-              <li><a href="#products">Products</a></li>
-              <li><a href="#manufacturing">Manufacturing</a></li>
-              <li><a href="#quality">Quality</a></li>
-              <li><a href="#testimonials">Testimonials</a></li>
-              <li><a href="#about">About Us</a></li>
-              <li><a href="#contact">Contact</a></li>
+              <li><Link to="/#home">Home</Link></li>
+              <li><Link to="/products/catalogue">Products</Link></li>
+              <li><Link to="/#manufacturing">Manufacturing</Link></li>
+              <li><Link to="/#quality">Quality</Link></li>
+              <li><Link to="/#testimonials">Testimonials</Link></li>
+              <li><Link to="/about">About Us</Link></li>
+              <li><Link to="/#contact">Contact</Link></li>
             </ul>
           </div>
 
@@ -94,11 +94,11 @@ export default function Contact() {
           <div className="sjmw-contact__col sjmw-contact__col--products animate-fade-up" style={{ animationDelay: '0.5s' }}>
             <h4 className="sjmw-contact__col-title">Products</h4>
             <ul className="sjmw-contact__link-list">
-              <li><Link to="/products/catalogue">Die Casting Alloys</Link></li>
-              <li><Link to="/products/catalogue">Gravity Casting Alloys</Link></li>
-              <li><Link to="/products/catalogue">Automotive Alloys</Link></li>
-              <li><Link to="/products/catalogue">Engineering Alloys</Link></li>
-              <li><Link to="/products/catalogue">Customized Alloys</Link></li>
+              <li><Link to="/products/catalogue" state={{ category: 'Die Casting Alloys' }}>Die Casting Alloys</Link></li>
+              <li><Link to="/products/catalogue" state={{ category: 'Gravity Casting Alloys' }}>Gravity Casting Alloys</Link></li>
+              <li><Link to="/products/catalogue" state={{ category: 'Automotive Alloys' }}>Automotive Alloys</Link></li>
+              <li><Link to="/products/catalogue" state={{ category: 'Engineering Alloys' }}>Engineering Alloys</Link></li>
+              <li><Link to="/products/catalogue" state={{ category: 'Customized Alloys' }}>Customized Alloys</Link></li>
             </ul>
             <Link to="/products/catalogue" className="sjmw-contact__explore-link">
               Explore Catalogue <span aria-hidden="true">→</span>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './Navbar.css';
 import sjmwLogo from '../../assets/sjmw-logo.png';
 
@@ -16,16 +16,28 @@ const NAV_LINKS = [];
  * - ERP Login CTA button on the right
  */
 export default function Navbar() {
-  const [scrolled,     setScrolled]     = useState(false);
-  const [menuOpen,     setMenuOpen]     = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const [activeLink, setActiveLink] = useState(location.pathname === '/about' ? '/about' : '/#home');
+  const lastScrollY = useRef(0);
 
   /* ── Scroll listener ─────────────────────────────────────── */
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 80);
+      const currentScrollY = window.scrollY;
+      setScrolled(currentScrollY > 80);
+
+      // Hide/Show logic
+      if (currentScrollY > lastScrollY.current && currentScrollY > 200) {
+        setHidden(true);
+      } else if (currentScrollY < lastScrollY.current) {
+        setHidden(false);
+      }
+      
+      lastScrollY.current = currentScrollY;
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
@@ -71,7 +83,7 @@ export default function Navbar() {
     <>
       {/* ── Main Navbar ─────────────────────────────────────── */}
       <header
-        className={`navbar${scrolled || location.pathname === '/about' ? ' scrolled' : ''}`}
+        className={`navbar${scrolled || location.pathname === '/about' ? ' scrolled' : ''}${hidden ? ' hidden' : ''}`}
         role="banner"
         aria-label="Main navigation"
       >
@@ -95,7 +107,12 @@ export default function Navbar() {
           {/* Desktop Navigation (Removed) */}
           {/* Desktop CTA */}
           <div className="navbar__cta">
-            <Link to="/about" className="btn-nav-secondary" aria-label="About Us">
+            <Link 
+              to="/about" 
+              className="btn-nav-secondary" 
+              aria-label="About Us"
+              onClick={() => window.scrollTo(0, 0)}
+            >
               About Us
             </Link>
             <a href="#erp" className="btn-erp" aria-label="ERP Login portal">
@@ -129,7 +146,14 @@ export default function Navbar() {
         {/* Mobile Navigation Links (Removed) */}
         <div className="navbar__mobile-divider" role="separator" />
         <div className="navbar__mobile-cta">
-          <Link to="/about" className="btn-nav-secondary" onClick={() => setMenuOpen(false)}>
+          <Link 
+            to="/about" 
+            className="btn-nav-secondary" 
+            onClick={() => {
+              setMenuOpen(false);
+              window.scrollTo(0, 0);
+            }}
+          >
             About Us
           </Link>
           <a href="#erp" className="btn-erp" onClick={() => setMenuOpen(false)}>

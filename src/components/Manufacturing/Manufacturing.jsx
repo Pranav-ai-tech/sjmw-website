@@ -123,10 +123,7 @@ export default function Manufacturing() {
 
         {/* ── Section Header ────────────────────────────────── */}
         <header className={`mfg-header ${isVisible ? 'is-visible' : ''}`}>
-          <div className="mfg-eyebrow">
-            <span className="mfg-eyebrow__dot" aria-hidden="true" />
-            Manufacturing Excellence
-          </div>
+
           <h2 id="mfg-heading" className="mfg-heading">
             Our Aluminium{' '}
             <span className="mfg-heading__accent">Manufacturing</span>{' '}

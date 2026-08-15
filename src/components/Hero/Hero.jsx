@@ -1,6 +1,6 @@
 import React from 'react';
 import './Hero.css';
-import heroImage from '../../assets/4722af16-cce2-47cb-93c1-d9f73c6f7751.jpg';
+import heroImage from '../../assets/SRI JYOTHI FACT.jpg';
 import ingotImage from '../../assets/ingot-product.png'; // Small ingot for the floating card
 import StatsCard from '../StatsCard/StatsCard';
 import { useScrollReveal } from '../../hooks/useScrollReveal';
@@ -58,7 +58,7 @@ export default function Hero() {
             </p>
 
             <div className="hero__buttons">
-              <a href="#products" className="btn-hero-primary" aria-label="Get a free quote">
+              <a href="#contact" className="btn-hero-primary" aria-label="Get a free quote">
                 GET A FREE QUOTE
                 <span className="btn-arrow-circle" aria-hidden="true">↗</span>
               </a>

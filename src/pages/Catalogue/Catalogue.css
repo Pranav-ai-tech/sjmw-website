@@ -4,6 +4,7 @@
    ============================================================ */
 
 .sjmw-catalogue-page {
+  position: relative;
   background-color: #FAFAF8;
   min-height: 100vh;
   padding: 40px 0 100px;
@@ -19,7 +20,10 @@
 
 /* ── Navigation & Header ─────────────────────────────────── */
 .sjmw-catalogue__nav {
-  margin-bottom: 40px;
+  position: absolute;
+  top: 20px;
+  left: 40px;
+  z-index: 10;
 }
 
 .sjmw-catalogue__back-link {
@@ -46,6 +50,7 @@
 }
 
 .sjmw-catalogue__header {
+  margin-top: 40px;
   margin-bottom: 60px;
   max-width: 700px;
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Quality.css';
 import { qualityFeatures } from '../../data/qualityFeatures';
 import { useScrollReveal } from '../../hooks/useScrollReveal';
@@ -51,7 +52,6 @@ export default function Quality() {
         {/* Header (2 Columns) */}
         <header className="sjmw-quality__header">
           <div className="sjmw-quality__header-left">
-            <span className="sjmw-quality__number animate-fade-up">(01)</span>
             <h2 className="sjmw-quality__title animate-fade-up" style={{ animationDelay: '0.1s' }}>
               Why Choose <span className="sjmw-quality__title-highlight">SJMW?</span>
             </h2>
@@ -60,9 +60,14 @@ export default function Quality() {
             <p className="sjmw-quality__desc animate-fade-up" style={{ animationDelay: '0.2s' }}>
               Discover the difference of working with a trusted aluminium alloy manufacturer focused on quality, consistency, and long-term industrial partnerships.
             </p>
-            <a href="#about" className="sjmw-quality__cta animate-fade-up" style={{ animationDelay: '0.3s' }}>
+            <Link 
+              to="/about" 
+              className="sjmw-quality__cta animate-fade-up" 
+              style={{ animationDelay: '0.3s' }}
+              onClick={() => window.scrollTo(0, 0)}
+            >
               Learn More &rarr;
-            </a>
+            </Link>
           </div>
         </header>
 

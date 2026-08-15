@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Navbar from '../../components/Navbar/Navbar';
 import './About.css';
-import factoryImage from '../../assets/4722af16-cce2-47cb-93c1-d9f73c6f7751.jpg'; // Using the real factory image
+import factoryImage from '../../assets/SRI JYOTHI FACT.jpg'; // Using the real factory image
 
 const MILESTONES = [
   { 
@@ -58,6 +58,11 @@ export default function About() {
   const [hasAnimated, setHasAnimated] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState(null);
 
+  // Scroll to top on mount
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   // Timeline Animation Logic
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -111,10 +116,6 @@ export default function About() {
         {/* ── Section 1: Hero Banner ──────────────────────────────── */}
         <section className="about-hero" aria-labelledby="about-hero-heading">
           <div className="about-hero__inner">
-            <div className="about-hero__label">
-              <span className="about-hero__label-dot"></span>
-              ABOUT SJMW
-            </div>
             <h1 id="about-hero-heading" className="about-hero__title">
               Our Legacy of <span className="about-hero__title-highlight">Aluminium Excellence</span>
             </h1>
