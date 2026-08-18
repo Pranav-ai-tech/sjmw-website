@@ -404,6 +404,10 @@
 
 /* Mobile Responsive */
 @media (max-width: 768px) {
+  .about-journey {
+    display: none;
+  }
+
   .about-hero__title {
     font-size: 2.25rem;
   }

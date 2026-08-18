@@ -157,6 +157,6 @@ button {
 
 /* ── Selection ────────────────────────────────────────────── */
 ::selection {
-  background: var(--color-accent);
-  color: var(--color-white);
+  background: #42A5F5;
+  color: #FFFFFF;
 }

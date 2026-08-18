@@ -1,6 +1,6 @@
 import React from 'react';
 import './Hero.css';
-import heroImage from '../../assets/SRI JYOTHI FACT.jpg';
+import heroImage from '../../assets/SRI JYOTHI FACT.png';
 import ingotImage from '../../assets/ingot-product.png'; // Small ingot for the floating card
 import StatsCard from '../StatsCard/StatsCard';
 import { useScrollReveal } from '../../hooks/useScrollReveal';

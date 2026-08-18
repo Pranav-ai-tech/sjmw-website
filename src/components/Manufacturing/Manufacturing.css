@@ -364,7 +364,7 @@
 }
 
 /* Mobile — stack everything, timeline on left */
-@media (max-width: 640px) {
+@media (max-width: 768px) {
   .mfg-section {
     padding: 4rem 1.25rem 3.5rem;
   }
@@ -394,14 +394,16 @@
   }
 
   .tl-stage__node-col {
+    order: 1;
     flex-shrink: 0;
     margin-right: 1.25rem;
-    margin-left: -22px; /* overlap the left line */
+    margin-left: -42px; /* Centers the 38px node precisely on the left: 20px track */
   }
 
   /* All content flows to the right, regardless of desktop side */
   .tl-stage__content--left,
   .tl-stage__content--right {
+    order: 2;
     text-align: left;
     padding: 0;
     flex: 1;

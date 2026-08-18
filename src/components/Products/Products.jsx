@@ -68,7 +68,6 @@ const RIGHT_ALLOYS = ALLOY_DATA.filter(a => a.side === 'right');
 
 export default function Products() {
   const [hoveredAlloy, setHoveredAlloy] = useState(null);
-  const [selectedAlloy, setSelectedAlloy] = useState(null);
   const { ref, isVisible } = useScrollReveal();
   const [isMobile, setIsMobile] = useState(window.innerWidth < 1024);
   const sectionRef = useRef(null);
@@ -179,28 +178,17 @@ export default function Products() {
                   key={alloy.id}
                   ref={(el) => (labelRefs.current[index] = el)}
                   className={`blueprint-label premium-label ${
-                    hoveredAlloy === alloy.id || selectedAlloy?.id === alloy.id ? 'is-active' : ''
+                    hoveredAlloy === alloy.id ? 'is-active' : ''
                   }`}
                   style={{ animationDelay: `${0.2 + index * 0.1}s` }}
                   onMouseEnter={() => setHoveredAlloy(alloy.id)}
                   onMouseLeave={() => setHoveredAlloy(null)}
-                  onClick={() => setSelectedAlloy(selectedAlloy?.id === alloy.id ? null : alloy)}
                 >
                   <div className="blueprint-label__content">
-                    <span className="premium-label__category">{alloy.category}</span>
                     <span className="blueprint-label__name">{alloy.name}</span>
                     <span className="blueprint-label__desc">{alloy.desc}</span>
                     <span className="premium-label__app">{alloy.app}</span>
                   </div>
-                  {isMobile && (
-                    <div className={`blueprint-accordion ${selectedAlloy?.id === alloy.id ? 'is-open' : ''}`}>
-                      <div className="blueprint-panel__section">
-                        <h5>Mechanical Properties</h5>
-                        <ul>{alloy.properties.map((p, i) => <li key={i}>{p}</li>)}</ul>
-                      </div>
-                      <a href="#contact" className="blueprint-panel__cta premium-cta">View Specification →</a>
-                    </div>
-                  )}
                 </div>
               );
             })}
@@ -230,15 +218,13 @@ export default function Products() {
                   key={alloy.id}
                   ref={(el) => (labelRefs.current[index] = el)}
                   className={`blueprint-label blueprint-label--right premium-label ${
-                    hoveredAlloy === alloy.id || selectedAlloy?.id === alloy.id ? 'is-active' : ''
+                    hoveredAlloy === alloy.id ? 'is-active' : ''
                   }`}
                   style={{ animationDelay: `${0.2 + index * 0.1}s` }}
                   onMouseEnter={() => setHoveredAlloy(alloy.id)}
                   onMouseLeave={() => setHoveredAlloy(null)}
-                  onClick={() => setSelectedAlloy(selectedAlloy?.id === alloy.id ? null : alloy)}
                 >
                   <div className="blueprint-label__content">
-                    <span className="premium-label__category">{alloy.category}</span>
                     <span className="blueprint-label__name">{alloy.name}</span>
                     <span className="blueprint-label__desc">{alloy.desc}</span>
                     <span className="premium-label__app">{alloy.app}</span>
@@ -248,28 +234,7 @@ export default function Products() {
             })}
           </div>
 
-          {/* Floating Information Panel (Desktop Only) */}
-          {selectedAlloy && !isMobile && (
-            <div className="blueprint-panel premium-glass-panel animate-slide-fade">
-              <button className="blueprint-panel__close" onClick={() => setSelectedAlloy(null)}>✕</button>
-              <div className="premium-glass-header">
-                <span className="premium-label__category panel-category">{selectedAlloy.category}</span>
-                <h4 className="blueprint-panel__name">{selectedAlloy.name}</h4>
-                <p className="blueprint-panel__desc">{selectedAlloy.desc}</p>
-              </div>
-              <div className="blueprint-panel__section">
-                <h5>Properties</h5>
-                <ul className="premium-prop-list">
-                  {selectedAlloy.properties.map((prop, idx) => (
-                    <li key={idx}>✓ {prop}</li>
-                  ))}
-                </ul>
-              </div>
-              <a href="#contact" className="blueprint-panel__cta premium-cta" onClick={(e) => { e.stopPropagation(); }}>
-                View Specification →
-              </a>
-            </div>
-          )}
+          {/* Floating Information Panel Removed */}
         </div>
 
         {/* Unified absolute overlay for connecting SVG lines and dots */}
@@ -282,7 +247,7 @@ export default function Products() {
                 return (
                   <path 
                     key={`path-${alloy.id}`}
-                    className={`blueprint-line premium-line ${hoveredAlloy === alloy.id || selectedAlloy?.id === alloy.id ? 'is-active' : ''}`}
+                    className={`blueprint-line premium-line ${hoveredAlloy === alloy.id ? 'is-active' : ''}`}
                     d={generatePath(coords.startX, coords.startY, alloy.targetX, coords.startY)}
                     style={{ animationDelay: `${0.2 + index * 0.1}s` }}
                   />
@@ -297,11 +262,10 @@ export default function Products() {
             return (
               <div 
                 key={`dot-${alloy.id}`}
-                className={`blueprint-dot premium-dot ${hoveredAlloy === alloy.id || selectedAlloy?.id === alloy.id ? 'is-active' : ''}`}
+                className={`blueprint-dot premium-dot ${hoveredAlloy === alloy.id ? 'is-active' : ''}`}
                 style={{ top: `${dotY}%`, left: `${alloy.targetX}%`, animationDelay: `${0.5 + index * 0.1}s` }}
                 onMouseEnter={() => setHoveredAlloy(alloy.id)}
                 onMouseLeave={() => setHoveredAlloy(null)}
-                onClick={() => setSelectedAlloy(alloy)}
               />
             );
           })}

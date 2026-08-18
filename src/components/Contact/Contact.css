@@ -52,12 +52,11 @@
 
 
 
-/* ── 4-Column Grid ────────────────────────────────────────── */
+/* ── 2-Column Grid ────────────────────────────────────────── */
 .sjmw-contact__grid {
   display: grid;
-  /* Proportions: roughly 30% | 15% | 20% | 35% */
-  grid-template-columns: 3fr 1.5fr 2fr 3.5fr;
-  gap: 40px;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
   margin-bottom: 80px;
 }
 
@@ -315,42 +314,9 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* ── Responsive Adjustments ──────────────────────────────── */
-@media (max-width: 1200px) {
-  .sjmw-contact__grid {
-    grid-template-columns: 2fr 1fr 1.5fr 3fr;
-    gap: 30px;
-  }
-}
-
 @media (max-width: 992px) {
   .sjmw-contact__container {
     padding: 0 24px;
-  }
-  
-  .sjmw-contact__grid {
-    grid-template-columns: 1fr 1fr;
-    row-gap: 50px;
-  }
-  
-  .sjmw-contact__col--company {
-    grid-column: 1 / 2;
-    grid-row: 1;
-  }
-  
-  .sjmw-contact__col--links {
-    grid-column: 2 / 3;
-    grid-row: 1;
-  }
-  
-  .sjmw-contact__col--products {
-    grid-column: 1 / 2;
-    grid-row: 2;
-  }
-  
-  .sjmw-contact__col--form {
-    grid-column: 2 / 3;
-    grid-row: 2;
   }
 }
 
@@ -364,22 +330,7 @@
     row-gap: 48px;
   }
   
-  /* Reset grid placement for mobile (natural document order) */
-  .sjmw-contact__col--company,
-  .sjmw-contact__col--links,
-  .sjmw-contact__col--products,
-  .sjmw-contact__col--form {
-    grid-column: auto;
-    grid-row: auto;
-  }
-  
   .sjmw-form-row {
     grid-template-columns: 1fr;
-  }
-  
-  .sjmw-contact__footer {
-    flex-direction: column;
-    gap: 12px;
-    text-align: center;
   }
 }

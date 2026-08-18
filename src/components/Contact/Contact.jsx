@@ -76,36 +76,7 @@ export default function Contact() {
             </div>
           </div>
 
-          {/* Column 2: Quick Links */}
-          <div className="sjmw-contact__col sjmw-contact__col--links animate-fade-up" style={{ animationDelay: '0.4s' }}>
-            <h4 className="sjmw-contact__col-title">Quick Links</h4>
-            <ul className="sjmw-contact__link-list">
-              <li><Link to="/#home">Home</Link></li>
-              <li><Link to="/products/catalogue">Products</Link></li>
-              <li><Link to="/#manufacturing">Manufacturing</Link></li>
-              <li><Link to="/#quality">Quality</Link></li>
-              <li><Link to="/#testimonials">Testimonials</Link></li>
-              <li><Link to="/about">About Us</Link></li>
-              <li><Link to="/#contact">Contact</Link></li>
-            </ul>
-          </div>
-
-          {/* Column 3: Products */}
-          <div className="sjmw-contact__col sjmw-contact__col--products animate-fade-up" style={{ animationDelay: '0.5s' }}>
-            <h4 className="sjmw-contact__col-title">Products</h4>
-            <ul className="sjmw-contact__link-list">
-              <li><Link to="/products/catalogue" state={{ category: 'Die Casting Alloys' }}>Die Casting Alloys</Link></li>
-              <li><Link to="/products/catalogue" state={{ category: 'Gravity Casting Alloys' }}>Gravity Casting Alloys</Link></li>
-              <li><Link to="/products/catalogue" state={{ category: 'Automotive Alloys' }}>Automotive Alloys</Link></li>
-              <li><Link to="/products/catalogue" state={{ category: 'Engineering Alloys' }}>Engineering Alloys</Link></li>
-              <li><Link to="/products/catalogue" state={{ category: 'Customized Alloys' }}>Customized Alloys</Link></li>
-            </ul>
-            <Link to="/products/catalogue" className="sjmw-contact__explore-link">
-              Explore Catalogue <span aria-hidden="true">→</span>
-            </Link>
-          </div>
-
-          {/* Column 4: Contact Form */}
+          {/* Column 2: Contact Form */}
           <div className="sjmw-contact__col sjmw-contact__col--form animate-fade-up" style={{ animationDelay: '0.6s' }}>
             <div className="sjmw-contact__form-wrapper">
               <h4 className="sjmw-contact__col-title">Contact Us</h4>
@@ -138,13 +109,6 @@ export default function Contact() {
           </div>
 
         </div>
-
-        {/* Footer Strip */}
-        <div className="sjmw-contact__footer">
-          <p>© 2026 Sri Jothi Moulding Works. All Rights Reserved.</p>
-          <p>Designed & Developed by Procomets.</p>
-        </div>
-
       </div>
     </section>
   );

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import Navbar from '../../components/Navbar/Navbar';
 import './About.css';
-import factoryImage from '../../assets/SRI JYOTHI FACT.jpg'; // Using the real factory image
+import factoryImage from '../../assets/SRI JYOTHI FACT.png'; // Using the real factory image
 
 const MILESTONES = [
   { 

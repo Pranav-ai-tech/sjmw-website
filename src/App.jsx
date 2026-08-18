@@ -2,8 +2,11 @@ import './styles/global.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import About from './pages/About/About';
-import Contact from './components/Contact/Contact';
 import Catalogue from './pages/Catalogue/Catalogue';
+
+import Footer from './components/Footer/Footer';
+
+import FloatingWhatsApp from './components/FloatingWhatsApp/FloatingWhatsApp';
 
 /**
  * App.jsx — Root Application Component
@@ -17,7 +20,8 @@ export default function App() {
         <Route path="/about" element={<About />} />
         <Route path="/products/catalogue" element={<Catalogue />} />
       </Routes>
-      <Contact />
+      <FloatingWhatsApp />
+      <Footer />
     </Router>
   );
 }

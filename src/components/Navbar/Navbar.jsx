@@ -36,7 +36,7 @@ export default function Navbar() {
       } else if (currentScrollY < lastScrollY.current) {
         setHidden(false);
       }
-      
+
       lastScrollY.current = currentScrollY;
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -83,20 +83,20 @@ export default function Navbar() {
     <>
       {/* ── Main Navbar ─────────────────────────────────────── */}
       <header
-        className={`navbar${scrolled || location.pathname === '/about' ? ' scrolled' : ''}${hidden ? ' hidden' : ''}`}
+        className={`navbar pill-nav ${scrolled ? 'scrolled' : ''} ${hidden ? 'hidden' : ''}`}
         role="banner"
         aria-label="Main navigation"
       >
         <div className="navbar__inner">
 
           {/* Brand / Logo */}
-          <a className="navbar__brand" href="#home" aria-label="Sri Jothi Moulding Works – Home">
+          <a className="navbar__brand" href="/#home" aria-label="Sri Jothi Moulding Works – Home">
             <img
               src={sjmwLogo}
               alt="SJMW Logo"
               className="navbar__logo-img"
-              width={52}
-              height={52}
+              width={40}
+              height={40}
             />
             <span className="navbar__brand-text">
               <span className="navbar__brand-name">SJMW</span>
@@ -104,63 +104,28 @@ export default function Navbar() {
             </span>
           </a>
 
-          {/* Desktop Navigation (Removed) */}
+          {/* Vertical Divider */}
+          <div className="navbar__divider" />
+
           {/* Desktop CTA */}
           <div className="navbar__cta">
-            <Link 
-              to="/about" 
-              className="btn-nav-secondary" 
+            <Link
+              to="/about"
+              className="btn-nav-about"
               aria-label="About Us"
               onClick={() => window.scrollTo(0, 0)}
             >
-              About Us
+              About
             </Link>
-            <a href="#erp" className="btn-erp" aria-label="ERP Login portal">
+            <a href="#erp" className="btn-nav-erp" aria-label="ERP Login portal">
               ERP Login
             </a>
           </div>
 
-          {/* Hamburger (mobile) */}
-          <button
-            className={`navbar__hamburger${menuOpen ? ' open' : ''}`}
-            onClick={() => setMenuOpen(prev => !prev)}
-            aria-expanded={menuOpen}
-            aria-controls="mobile-menu"
-            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-          >
-            <span className="navbar__hamburger-line" />
-            <span className="navbar__hamburger-line" />
-            <span className="navbar__hamburger-line" />
-          </button>
-
         </div>
       </header>
 
-      {/* ── Mobile Menu Dropdown ─────────────────────────────── */}
-      <nav
-        id="mobile-menu"
-        className={`navbar__mobile-menu${menuOpen ? ' open' : ''}`}
-        aria-label="Mobile navigation"
-        aria-hidden={!menuOpen}
-      >
-        {/* Mobile Navigation Links (Removed) */}
-        <div className="navbar__mobile-divider" role="separator" />
-        <div className="navbar__mobile-cta">
-          <Link 
-            to="/about" 
-            className="btn-nav-secondary" 
-            onClick={() => {
-              setMenuOpen(false);
-              window.scrollTo(0, 0);
-            }}
-          >
-            About Us
-          </Link>
-          <a href="#erp" className="btn-erp" onClick={() => setMenuOpen(false)}>
-            ERP Login
-          </a>
-        </div>
-      </nav>
+
     </>
   );
 }

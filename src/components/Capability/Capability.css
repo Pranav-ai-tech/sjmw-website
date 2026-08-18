@@ -261,30 +261,25 @@
 /* ── Responsive Adjustments ──────────────────────────────── */
 @media (max-width: 1024px) {
   .sjmw-capability__visual {
-    height: auto;
-    min-height: 400px;
+    zoom: 0.8;
+  }
+}
+
+@media (max-width: 768px) {
+  .sjmw-capability__visual {
+    zoom: 0.55;
+  }
+}
+
+@media (max-width: 480px) {
+  .sjmw-capability__visual {
+    zoom: 0.35;
   }
   
-  .sjmw-capability__map-bg,
-  .sjmw-capability__lines {
-    display: none; /* Hide the complex abstract visual on smaller screens to keep it clean */
-  }
-
-  .sjmw-capability__cards {
-    position: relative;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    height: auto;
-  }
-
-  .sjmw-stat-card {
-    position: relative;
-    top: auto !important;
-    left: auto !important;
-    right: auto !important;
-    bottom: auto !important;
-  }
+  /* Slightly pull cards inward so they don't clip off the screen on very tiny devices */
+  .card-1 { left: 5%; }
+  .card-3 { right: 10%; }
+  .card-4 { right: 0; }
 }
 
 @media (max-width: 768px) {
@@ -301,8 +296,3 @@
   }
 }
 
-@media (max-width: 600px) {
-  .sjmw-capability__cards {
-    grid-template-columns: 1fr;
-  }
-}
